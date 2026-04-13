@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">islamie_app101</string>
+    <string name="hello_blank_fragment">مرحبا بك في الفراغ</string>
+    <string name="made_by_youssef_shokry">تم التطوير بواسطة يوسف شكري</string>
+    <string name="Islami">إسلامي</string>
+    <string name="quran">القرآن</string>
+    <string name="hadeth">الحديث</string>
+    <string name="sebha">السبحة</string>
+    <string name="radio">الراديو</string>
+    <string name="suras_list">قائمة السور</string>
+    <string name="verses_count">%d ايات</string>
+</resources>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/sura_number_holder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/sura_name_en"
+        app:layout_constraintBottom_toBottomOf="@id/sura_verses_en"
+        android:src="@drawable/sura_number_cover"
+        android:layout_marginTop="5dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/sura_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/sura_number_holder"
+        app:layout_constraintEnd_toEndOf="@id/sura_number_holder"
+        app:layout_constraintTop_toTopOf="@id/sura_number_holder"
+        app:layout_constraintBottom_toBottomOf="@id/sura_number_holder"
+        tools:text="1"
+        style="@style/applicationTextStyle"
+        android:textSize="20sp"
+        android:textColor="@color/white"/>
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/sura_name_en"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/sura_number_holder"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="24sp"
+        tools:text="Al-Fataha"
+        style="@style/applicationTextStyle"
+        android:textSize="20sp"
+        android:textColor="@color/white"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/sura_verses_en"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/sura_name_en"
+        app:layout_constraintTop_toBottomOf="@id/sura_name_en"
+        tools:text="7 Verses"
+        style="@style/applicationTextStyle"
+        android:textSize="14sp"
+        android:textColor="@color/white"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/sura_name_ar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/sura_number_holder"
+        app:layout_constraintBottom_toBottomOf="@id/sura_number_holder"
+        tools:text="الفاتحه"
+        style="@style/applicationTextStyle"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:layout_marginEnd="10dp"/>
+
+    <View
+        android:id="@+id/horizontal_line"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sura_verses_en"
+        android:background="@color/white"
+        android:layout_marginVertical="10dp"
+        android:layout_marginHorizontal="30dp"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
+

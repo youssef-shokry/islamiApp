@@ -5,12 +5,20 @@
         <item name="colorAccent">@color/black</item>
         <item name="android:statusBarColor">@color/gold</item>
         <item name="android:windowBackground">@color/black</item>
-        <item name="colorSecondaryContainer">@color/brown</item>
+        <item name="colorSecondaryContainer">@color/active_indicator_color</item>
         <item name="android:windowFullscreen">true</item>
     </style>
 
     <style name="applicationTextStyle">
         <item name="android:textStyle">normal</item>
         <item name="android:fontFamily">@font/alfont_com_janna</item>
+    </style>
+
+
+    <style name="bottomNavStyle">
+        <item name="backgroundTint">@color/gold</item>
+        <item name="itemIconTint">@drawable/bottom_nav_selected_color</item>
+        <item name="itemTextColor">@drawable/bottom_nav_selected_color</item>
+        <item name="itemIconSize">25dp</item>
     </style>
 </resources>
