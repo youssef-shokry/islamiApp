@@ -50,4 +50,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     //Splash Screen Dependency
     implementation(libs.androidx.core.splashscreen)
+    //Navigation Component Dependency
+    implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.navigation.ui)
 }

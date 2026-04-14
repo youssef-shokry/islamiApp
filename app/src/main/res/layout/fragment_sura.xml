@@ -1,14 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.application_screens.quran_fragments.SuraFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sura_name_en"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="40dp"
+        tools:text="Al-Fatiha"
+        style="@style/applicationTextStyle"
+        android:textColor="@color/gold"
+        android:textSize="20sp"/>
 
-</FrameLayout>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/back_arrow_icon"
+        app:layout_constraintTop_toTopOf="@id/sura_name_en"
+        app:layout_constraintBottom_toBottomOf="@id/sura_name_en"
+        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/back_arrow"
+        android:layout_marginStart="32dp"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/left_corner"
+        android:src="@drawable/left_corner"
+        app:layout_constraintTop_toBottomOf="@id/back_arrow_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="20dp"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/right_corner"
+        app:layout_constraintTop_toTopOf="@id/left_corner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/left_corner"
+        android:src="@drawable/right_corner"
+        android:layout_margin="20dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sura_name_ar"
+        app:layout_constraintStart_toEndOf="@id/left_corner"
+        app:layout_constraintEnd_toStartOf="@id/right_corner"
+        app:layout_constraintTop_toTopOf="@id/left_corner"
+        app:layout_constraintBottom_toBottomOf="@id/right_corner"
+        tools:text="الفاتحه"
+        android:textSize="24sp"
+        android:textColor="@color/gold"
+        style="@style/applicationTextStyle"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/ayat_recycler_view"
+        app:layout_constraintTop_toBottomOf="@id/left_corner"
+        app:layout_constraintStart_toStartOf="@id/left_corner"
+        app:layout_constraintEnd_toEndOf="@id/right_corner"
+        app:layout_constraintBottom_toTopOf="@id/bottom_screen_image"
+        android:layout_margin="22dp"
+        tools:listitem="@layout/sura_aya_item"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bottom_screen_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/bottom_screen_image"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
