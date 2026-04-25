@@ -56,4 +56,10 @@ dependencies {
     implementation(libs.androidx.navigation.ui)
     //ViewPager2 Dependency
     implementation(libs.androidx.viewpager2)
+    //Kotlin Coroutines Dependency
+    implementation(libs.kotlinx.coroutines.android)
+    // ViewModel Dependency
+    implementation(libs.androidx.lifecycle.viewmodel)
+    // LiveData Dependency
+    implementation(libs.androidx.lifecycle.livedata)
 }
