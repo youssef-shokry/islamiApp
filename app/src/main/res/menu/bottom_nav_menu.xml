@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/quran"
+    <item android:id="@+id/selectSuraFragment"
         android:icon="@drawable/quran_ic"
         android:title="@string/quran"/>
 
-    <item android:id="@+id/hadeth"
+    <item android:id="@+id/selectHadethFragment"
         android:icon="@drawable/hadeth_ic"
         android:title="@string/hadeth"/>
 
-    <item android:id="@+id/sebha"
+    <item android:id="@+id/sebhaFragment"
         android:icon="@drawable/sebha_ic"
         android:title="@string/sebha"/>
 
-    <item android:id="@+id/radio"
+    <item android:id="@+id/radioFragment"
         android:icon="@drawable/radio_ic"
         android:title="@string/radio"/>
 

@@ -21,4 +21,9 @@
         <item name="itemTextColor">@drawable/bottom_nav_selected_color</item>
         <item name="itemIconSize">25dp</item>
     </style>
+
+    <style name="roundShape">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+    </style>
 </resources>

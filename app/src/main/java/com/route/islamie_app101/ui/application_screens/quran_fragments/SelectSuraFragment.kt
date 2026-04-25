@@ -32,6 +32,7 @@ class SelectSuraFragment : Fragment() {
 
     private fun setUpAdapter() {
         adapter = SuraRecyclerViewAdapter(repo.getSurahsList())
+        binding.surasRecyclerView.adapter = adapter
     }
 
 }

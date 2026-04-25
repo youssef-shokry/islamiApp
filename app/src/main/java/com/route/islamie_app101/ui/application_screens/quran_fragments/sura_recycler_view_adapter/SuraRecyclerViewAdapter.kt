@@ -32,6 +32,7 @@ class SuraRecyclerViewAdapter(val surahsList: List<SuraDataModel>):
             binding.suraNameAr.text = sura.suraNameAr
             binding.suraVersesEn.text = itemView.context
                 .getString(R.string.verses_count, sura.versesNumber.toInt())
+            binding.suraNumber.text = sura.id
         }
 
     }

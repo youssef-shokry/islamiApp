@@ -1,60 +1,52 @@
 package com.route.islamie_app101.ui.application_screens.hadeth_fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.route.islamie_app101.R
+import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
+import com.route.islamie_app101.databinding.FragmentSelectHadethBinding
+import com.route.islamie_app101.ui.application_screens.hadeth_fragments.hadeth_recycler_view.HadethRecyclerViewAdapter
+import kotlin.math.abs
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SelectHadethFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SelectHadethFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var binding: FragmentSelectHadethBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_select_hadeth, container, false)
+    ): View {
+        binding = FragmentSelectHadethBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SelectHadethFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SelectHadethFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initVp2()
+        initTransformer()
+    }
+
+    private fun initTransformer() {
+        val transformer = CompositePageTransformer()
+        transformer.addTransformer(MarginPageTransformer(8))
+        transformer.addTransformer { page, position ->
+            val r = 1 - abs(position)
+            page.scaleY = 0.85f + (r * 0.15f)
+        }
+        binding.hadethViewPager.setPageTransformer(transformer)
+    }
+
+    private fun initVp2() {
+        val adapter = HadethRecyclerViewAdapter()
+
+        binding.hadethViewPager.offscreenPageLimit = 3
+        binding.hadethViewPager.clipToPadding = false
+        binding.hadethViewPager.clipChildren = false
+
+        binding.hadethViewPager.adapter = adapter
     }
 }
