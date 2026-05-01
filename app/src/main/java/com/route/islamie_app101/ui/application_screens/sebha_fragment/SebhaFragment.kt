@@ -1,60 +1,78 @@
 package com.route.islamie_app101.ui.application_screens.sebha_fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.route.islamie_app101.R
+import com.route.islamie_app101.databinding.FragmentSebhaBinding
+import kotlinx.coroutines.Runnable
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SebhaFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SebhaFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private lateinit var binding: FragmentSebhaBinding
+    private lateinit var handler: Handler
+    private lateinit var runnable: Runnable
+    private var numberOfTasbeh: Int = 0
+    private val listOfTasbehText: List<String> =
+        mutableListOf("سبحان الله", "الحمد لله", "الله اكبر") //Todo make it combatable with clean code
+
+    private var listIndex = 0
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentSebhaBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initSebha()
+        sebhaFunctionality()
+    }
+
+    private fun initSebha() {
+        binding.tasbehText.text = listOfTasbehText[listIndex]
+        binding.tasbehNumbers.text = numberOfTasbeh.toString()
+        binding.sebhaBody.setImageResource(R.drawable.sebha_body)
+    }
+
+    private fun sebhaFunctionality() {
+        binding.sebhaBody.setOnClickListener {
+
+            binding.sebhaBody.setImageResource(R.drawable.sebha_effect)
+
+
+            handler = Handler(Looper.getMainLooper())
+            runnable = Runnable {
+                binding.sebhaBody.animate().rotationBy(30f)
+                binding.sebhaBody.setImageResource(R.drawable.sebha_body)
+            }
+
+            numberOfTasbeh++
+
+            sebhaTextChange()
+
+            binding.tasbehNumbers.text = numberOfTasbeh.toString()
+
+            handler.postDelayed(runnable, 200)
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sebha, container, false)
-    }
+    private fun sebhaTextChange() {
+        if (numberOfTasbeh >= 34) {
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SebhaFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SebhaFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+            numberOfTasbeh = 0
+
+            listIndex = (listIndex + 1) % listOfTasbehText.size
+
+            binding.tasbehText.text = listOfTasbehText[listIndex]
+        }
     }
 }

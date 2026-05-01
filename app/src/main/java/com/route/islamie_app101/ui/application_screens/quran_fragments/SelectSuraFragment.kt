@@ -5,17 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.route.islamie_app101.data.repositorys.quran_repository.ImpQuranRepository
+import androidx.fragment.app.viewModels
 import com.route.islamie_app101.databinding.FragmentSelectSuraBinding
-import com.route.islamie_app101.domain.repository.quran_repository.QuranReository
 import com.route.islamie_app101.ui.application_screens.quran_fragments.sura_recycler_view_adapter.SuraRecyclerViewAdapter
+import com.route.islamie_app101.ui.view_models.ViewModel
 
 class SelectSuraFragment : Fragment() {
 
-    lateinit var binding: FragmentSelectSuraBinding
-    lateinit var adapter: SuraRecyclerViewAdapter
-
-    private val repo: QuranReository = ImpQuranRepository()
+    private lateinit var binding: FragmentSelectSuraBinding
+    private lateinit var adapter: SuraRecyclerViewAdapter
+    private val viewModel: ViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,7 +30,7 @@ class SelectSuraFragment : Fragment() {
     }
 
     private fun setUpAdapter() {
-        adapter = SuraRecyclerViewAdapter(repo.getSurahsList())
+        adapter = SuraRecyclerViewAdapter(viewModel.suraList)
         binding.surasRecyclerView.adapter = adapter
     }
 

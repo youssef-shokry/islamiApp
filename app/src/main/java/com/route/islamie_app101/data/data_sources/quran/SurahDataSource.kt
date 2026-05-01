@@ -1,6 +1,5 @@
 package com.route.islamie_app101.data.data_sources.quran
 
-import android.util.Log
 import com.route.islamie_app101.domain.data_models.SuraDataModel
 import kotlin.collections.listOf
 

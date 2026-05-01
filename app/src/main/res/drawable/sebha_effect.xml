@@ -35,27 +35,12 @@
     </aapt:attr>
   </path>
   <path
-      android:pathData="M90.31,72.36C101.48,72.36 110.54,63.32 110.54,52.16C110.54,41.01 101.48,31.97 90.31,31.97C79.14,31.97 70.09,41.01 70.09,52.16C70.09,63.32 79.14,72.36 90.31,72.36Z">
+      android:pathData="M89,67C100.05,67 109,57.6 109,46C109,34.4 100.05,25 89,25C77.95,25 69,34.4 69,46C69,57.6 77.95,67 89,67Z">
     <aapt:attr name="android:fillColor">
       <gradient
-          android:centerX="90.31"
-          android:centerY="52.16"
-          android:gradientRadius="20.2"
-          android:type="radial">
-        <item android:offset="0" android:color="#FFFFCF7C"/>
-        <item android:offset="0.44" android:color="#FFDBAC5B"/>
-        <item android:offset="0.8" android:color="#FFB6893A"/>
-        <item android:offset="1" android:color="#FF77623D"/>
-      </gradient>
-    </aapt:attr>
-  </path>
-  <path
-      android:pathData="M63.76,96.35C74.93,96.35 83.99,87.3 83.99,76.15C83.99,64.99 74.93,55.95 63.76,55.95C52.6,55.95 43.54,64.99 43.54,76.15C43.54,87.3 52.6,96.35 63.76,96.35Z">
-    <aapt:attr name="android:fillColor">
-      <gradient
-          android:centerX="63.76"
-          android:centerY="76.15"
-          android:gradientRadius="20.2"
+          android:centerX="89"
+          android:centerY="46"
+          android:gradientRadius="21"
           android:type="radial">
         <item android:offset="0" android:color="#FFFFCF7C"/>
         <item android:offset="0.44" android:color="#FFDBAC5B"/>
@@ -215,10 +200,10 @@
     </aapt:attr>
   </path>
   <path
-      android:pathData="M188.9,380.37C200.07,380.37 209.13,371.32 209.13,360.17C209.13,349.02 200.07,339.97 188.9,339.97C177.74,339.97 168.68,349.02 168.68,360.17C168.68,371.32 177.74,380.37 188.9,380.37Z">
+      android:pathData="M188.91,380.37C200.07,380.37 209.13,371.32 209.13,360.17C209.13,349.02 200.07,339.97 188.91,339.97C177.74,339.97 168.68,349.02 168.68,360.17C168.68,371.32 177.74,380.37 188.91,380.37Z">
     <aapt:attr name="android:fillColor">
       <gradient
-          android:centerX="188.9"
+          android:centerX="188.91"
           android:centerY="360.17"
           android:gradientRadius="20.2"
           android:type="radial">
@@ -469,4 +454,10 @@
       </gradient>
     </aapt:attr>
   </path>
+  <path
+      android:pathData="M51.03,87.69L77.24,50.99"
+      android:strokeWidth="2"
+      android:fillColor="#00000000"
+      android:strokeColor="#ffffff"
+      android:strokeLineCap="round"/>
 </vector>

@@ -3,17 +3,18 @@ package com.route.islamie_app101.ui.splash_screens
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.route.islamie_app101.MainActivity
 import com.route.islamie_app101.databinding.ActivityCustomSplashScreenBinding
-import kotlinx.coroutines.Runnable
-import java.util.logging.Handler
 
 @SuppressLint("CustomSplashScreen")
 class CustomSplashScreenActivity : AppCompatActivity() {
-    lateinit var binding: ActivityCustomSplashScreenBinding
+    private lateinit var binding: ActivityCustomSplashScreenBinding
+    private lateinit var handler: Handler
+    private lateinit var runnable: Runnable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
@@ -26,8 +27,16 @@ class CustomSplashScreenActivity : AppCompatActivity() {
     }
 
     private fun splashScreenIntentActivation(){
-        android.os.Handler(Looper.getMainLooper()).postDelayed(Runnable {
+        handler = Handler(Looper.getMainLooper())
+        runnable = Runnable {
             startActivity(Intent(this, MainActivity::class.java))
-        }, 3000)
+            finish()
+        }
+        handler.postDelayed(runnable, 3000)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacks(runnable)
     }
 }
