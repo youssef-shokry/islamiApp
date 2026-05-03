@@ -352,7 +352,6 @@ object SurahDataSource {
         "5",
         "6"
     )
-
     val surahsList : List<SuraDataModel> = mutableListOf<SuraDataModel>().also { surahsList ->
         for (i in 0 until surahArabicName.size) {
             surahsList.add(SuraDataModel(
