@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.route.islamie_app101.databinding.FragmentSelectSuraBinding
 import com.route.islamie_app101.ui.application_screens.quran_fragments.sura_recycler_view_adapter.SuraRecyclerViewAdapter
-import com.route.islamie_app101.ui.view_models.ViewModel
+import com.route.islamie_app101.ui.ViewModel
 
 class SelectSuraFragment : Fragment() {
 

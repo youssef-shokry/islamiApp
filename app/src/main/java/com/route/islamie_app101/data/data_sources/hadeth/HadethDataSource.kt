@@ -40,7 +40,7 @@ object HadethDataSource {
         isLoaded = true
     }
 
-    fun getAhadethList(context: Context): List<HadethDataModel> {
+    fun ahadethList(context: Context): List<HadethDataModel> {
         readHadethFile(context)
         return ahadeth
     }

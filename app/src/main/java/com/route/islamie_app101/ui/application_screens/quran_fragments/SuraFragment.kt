@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.route.islamie_app101.databinding.FragmentSuraBinding
-import com.route.islamie_app101.domain.repository.quran_repository.QuranReository
-import com.route.islamie_app101.ui.application_screens.quran_fragments.sura_recycler_view_adapter.SuraRecyclerViewAdapter
 
 class SuraFragment : Fragment() {
     private lateinit var binding: FragmentSuraBinding
