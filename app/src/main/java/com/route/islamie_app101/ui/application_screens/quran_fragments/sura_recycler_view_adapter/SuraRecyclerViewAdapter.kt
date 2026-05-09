@@ -3,37 +3,35 @@ package com.route.islamie_app101.ui.application_screens.quran_fragments.sura_rec
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.route.islamie_app101.R
-import com.route.islamie_app101.databinding.SuraListItemBinding
-import com.route.islamie_app101.domain.data_models.SuraDataModel
+import com.route.islamie_app101.databinding.SuraAyaItemBinding
+class SuraRecyclerViewAdapter(val ayatList: List<String>) :
+    RecyclerView.Adapter<SuraRecyclerViewAdapter.AyaViewHolder>() {
 
-class SuraRecyclerViewAdapter(val surahsList: List<SuraDataModel>):
-    RecyclerView.Adapter<SuraRecyclerViewAdapter.SuraViewHolder>() {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuraViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): AyaViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = SuraListItemBinding.inflate(inflater, parent, false)
-        return SuraViewHolder(binding)
+        val binding = SuraAyaItemBinding.inflate(inflater, parent, false)
+
+        return AyaViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: SuraViewHolder, position: Int) {
-        holder.bind(surahsList[position])
+    override fun onBindViewHolder(
+        holder: AyaViewHolder,
+        position: Int
+    ) {
+        holder.bind(ayatList[position])
     }
 
-    override fun getItemCount(): Int {
-        return surahsList.size
-    }
+    override fun getItemCount(): Int = ayatList.size
 
-    class SuraViewHolder(val binding: SuraListItemBinding):
-        RecyclerView.ViewHolder(binding.root){
 
-        fun bind(sura: SuraDataModel){
-            binding.suraNameEn.text = sura.suraNameEn
-            binding.suraNameAr.text = sura.suraNameAr
-            binding.suraVersesEn.text = itemView.context
-                .getString(R.string.verses_count, sura.versesNumber.toInt())
-            binding.suraNumber.text = sura.id
+    class AyaViewHolder(val binding: SuraAyaItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(aya: String) {
+            binding.aya.text = aya
         }
-
     }
 }

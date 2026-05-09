@@ -9,13 +9,21 @@
         android:id="@+id/selectSuraFragment"
         android:name="com.route.islamie_app101.ui.application_screens.quran_fragments.SelectSuraFragment"
         android:label="fragment_select_sura"
-        tools:layout="@layout/fragment_select_sura"/>
+        tools:layout="@layout/fragment_select_sura">
+        <action
+            android:id="@+id/action_selectSuraFragment_to_suraFragment"
+            app:destination="@id/suraFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/selectHadethFragment"
         android:name="com.route.islamie_app101.ui.application_screens.hadeth_fragments.SelectHadethFragment"
         android:label="fragment_select_hadeth"
-        tools:layout="@layout/fragment_select_hadeth"/>
+        tools:layout="@layout/fragment_select_hadeth">
+        <action
+            android:id="@+id/action_selectHadethFragment_to_hadethFragment"
+            app:destination="@id/hadethFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/sebhaFragment"
@@ -28,4 +36,25 @@
         android:name="com.route.islamie_app101.ui.application_screens.radio_fragments.RadioFragment"
         android:label="fragment_radio"
         tools:layout="@layout/fragment_radio"/>
+    <fragment
+        android:id="@+id/suraFragment"
+        android:name="com.route.islamie_app101.ui.application_screens.quran_fragments.SuraFragment"
+        android:label="fragment_sura"
+        tools:layout="@layout/fragment_sura" >
+        <action
+            android:id="@+id/action_suraFragment_to_selectSuraFragment"
+            app:destination="@id/selectSuraFragment" />
+        <argument
+            android:name="sura"
+            app:argType="com.route.islamie_app101.domain.data_models.SuraDataModel" />
+    </fragment>
+    <fragment
+        android:id="@+id/hadethFragment"
+        android:name="com.route.islamie_app101.ui.application_screens.hadeth_fragments.HadethFragment"
+        android:label="fragment_hadeth"
+        tools:layout="@layout/fragment_hadeth" >
+        <action
+            android:id="@+id/action_hadethFragment_to_selectHadethFragment"
+            app:destination="@id/selectHadethFragment" />
+    </fragment>
 </navigation>

@@ -66,14 +66,16 @@
         />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:id="@+id/ayat_recycler_view"
-        app:layout_constraintTop_toBottomOf="@id/left_corner"
-        app:layout_constraintStart_toStartOf="@id/left_corner"
-        app:layout_constraintEnd_toEndOf="@id/right_corner"
+        app:layout_constraintTop_toBottomOf="@id/right_corner"
         app:layout_constraintBottom_toTopOf="@id/bottom_screen_image"
-        android:layout_margin="22dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_default="wrap"
+        android:layout_marginVertical="10dp"
+        android:layout_marginHorizontal="24dp"
         tools:listitem="@layout/sura_aya_item"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         />
