@@ -6,6 +6,7 @@ import com.route.islamie_app101.domain.data_models.HadethDataModel
 
 object HadethDataSource {
     var isLoaded = false
+    var id = 1
     private val ahadeth: MutableList<HadethDataModel> = emptyList<HadethDataModel>().toMutableList()
 
     private fun readHadethFile(context: Context) {
@@ -26,8 +27,9 @@ object HadethDataSource {
                     hadethLines.removeAt(0)
 
                     val hadethContent = hadethLines.joinToString(separator = " ")
-                    ahadeth.add(HadethDataModel(hadethTitle, hadethContent))
+                    ahadeth.add(HadethDataModel(hadethTitle, hadethContent, id.toString()))
 
+                    id++
                     hadethLines.clear()
                 }
 

@@ -6,18 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.route.islamie_app101.databinding.FragmentSelectHadethBinding
 import com.route.islamie_app101.domain.data_models.HadethDataModel
 import com.route.islamie_app101.ui.ViewModel
 import com.route.islamie_app101.ui.application_screens.hadeth_fragments.hadeth_recycler_view.HadethAdapter
+import com.route.islamie_app101.ui.application_screens.hadeth_fragments.hadeth_recycler_view.HadethClick
+import com.route.islamie_app101.ui.application_screens.quran_fragments.SelectSuraFragmentDirections
 import kotlin.math.abs
 
 
 class SelectHadethFragment : Fragment() {
 
     private lateinit var binding: FragmentSelectHadethBinding
+    private lateinit var adapter: HadethAdapter
     private val viewModel: ViewModel by viewModels()
     private var ahadethList: List<HadethDataModel> = emptyList()
 
@@ -34,6 +38,17 @@ class SelectHadethFragment : Fragment() {
         initHadethContent()
         initVp2()
         initTransformer()
+        initListeners()
+    }
+
+    private fun initListeners() {
+        adapter.hadethClick = object : HadethClick {
+            override fun onHadethClick(hadeth: HadethDataModel) {
+                val action = SelectHadethFragmentDirections.actionSelectHadethFragmentToHadethFragment(hadeth)
+
+                findNavController().navigate(action)
+            }
+        }
     }
 
     private fun initHadethContent() {
@@ -51,7 +66,7 @@ class SelectHadethFragment : Fragment() {
     }
 
     private fun initVp2() {
-        val adapter = HadethAdapter(ahadethList)
+        adapter = HadethAdapter(ahadethList)
 
         binding.hadethViewPager.offscreenPageLimit = 3
         binding.hadethViewPager.clipToPadding = false

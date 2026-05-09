@@ -1,9 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.application_screens.hadeth_fragments.HadethFragment">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/back_arrow_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:src="@drawable/back_arrow"
+        app:layout_constraintBottom_toBottomOf="@id/hadeth_title_en"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/hadeth_title_en" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/hadeth_title_en"
+        style="@style/applicationTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:textColor="@color/gold"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Hadeth 1" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/left_corner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/left_corner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/back_arrow_icon" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/right_corner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/right_corner"
+        app:layout_constraintBottom_toBottomOf="@id/left_corner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/back_arrow_icon" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/hadeth_title"
+        style="@style/applicationTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gold"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@id/left_corner"
+        app:layout_constraintEnd_toStartOf="@id/right_corner"
+        app:layout_constraintStart_toEndOf="@id/left_corner"
+        app:layout_constraintTop_toTopOf="@id/right_corner"
+        tools:text="الحديث الاول" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/hadeth_content"
+        style="@style/applicationTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@id/right_corner"
+        app:layout_constraintStart_toStartOf="@id/left_corner"
+        app:layout_constraintTop_toBottomOf="@id/hadeth_title"
+        tools:text=" عن أمـيـر المؤمنـين أبي حـفص عمر بن الخطاب رضي الله عنه ، قال : سمعت رسول الله صلى الله عـليه وسلم يـقـول : ( إنـما الأعـمـال بالنيات وإنـمـا لكـل امـرئ ما نـوى . فمن كـانت هجرته إلى الله ورسولـه فهجرتـه إلى الله ورسـوله ومن كانت هجرته لـدنيا يصـيبها أو امرأة ينكحها فهجرته إلى ما هاجر إليه ).
+رواه إمام المحد ثين أبـو عـبـد الله محمد بن إسماعـيل بن ابراهـيـم بن المغـيره بن بـرد زبه البخاري الجعـفي،[رقم:1] وابـو الحسـيـن مسلم بن الحجاج بن مـسلم القـشـيري الـنيسـابـوري [رقم :1907] رضي الله عنهما في صحيحيهما اللذين هما أصح الكتب المصنفه.
+"
+        android:textColor="@color/gold"
+        android:padding="16dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bottom_screen_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/bottom_screen_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,7 +11,7 @@ import com.route.islamie_app101.databinding.FragmentSelectSuraBinding
 import com.route.islamie_app101.domain.data_models.SuraDataModel
 import com.route.islamie_app101.ui.application_screens.quran_fragments.sura_recycler_view_adapter.SelectSuraRecyclerViewAdapter
 import com.route.islamie_app101.ui.ViewModel
-import com.route.islamie_app101.ui.application_screens.quran_fragments.sura_recycler_view_adapter.SelectSuraInterface
+import com.route.islamie_app101.ui.application_screens.quran_fragments.sura_recycler_view_adapter.SuraClick
 
 class SelectSuraFragment : Fragment() {
 
@@ -34,7 +34,7 @@ class SelectSuraFragment : Fragment() {
     }
 
     private fun initClickListeners() {
-        adapter.selectSura = object: SelectSuraInterface{
+        adapter.suraClick = object: SuraClick{
             override fun onSuraClick(sura: SuraDataModel) {
                 val action = SelectSuraFragmentDirections.actionSelectSuraFragmentToSuraFragment(sura)
 

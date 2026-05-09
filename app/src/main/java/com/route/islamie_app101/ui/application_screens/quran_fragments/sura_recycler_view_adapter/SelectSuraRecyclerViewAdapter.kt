@@ -9,8 +9,7 @@ import com.route.islamie_app101.domain.data_models.SuraDataModel
 
 class SelectSuraRecyclerViewAdapter(val surahsList: List<SuraDataModel>) :
     RecyclerView.Adapter<SelectSuraRecyclerViewAdapter.SuraViewHolder>() {
-
-    var selectSura: SelectSuraInterface? = null
+    var suraClick: SuraClick? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuraViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -35,12 +34,12 @@ class SelectSuraRecyclerViewAdapter(val surahsList: List<SuraDataModel>) :
             binding.suraVersesEn.text =
                 itemView.context.getString(R.string.verses_count, sura.versesNumber.toInt())
             binding.suraNumber.text = sura.id
-            suraClick(sura)
+            onSuraClick(sura)
         }
 
-        fun suraClick(sura: SuraDataModel) {
+        fun onSuraClick(sura: SuraDataModel) {
             binding.root.setOnClickListener {
-                selectSura?.onSuraClick(sura)
+                suraClick!!.onSuraClick(sura)
             }
         }
 

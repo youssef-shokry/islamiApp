@@ -1,7 +1,9 @@
 package com.route.islamie_app101
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.route.islamie_app101.databinding.ActivityMainBinding
@@ -9,6 +11,8 @@ import com.route.islamie_app101.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
+    private lateinit var navHostFragment: NavHostFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,12 +20,26 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setUpNavigationComponent()
+        fullScreenFragments()
+
+    }
+
+    private fun fullScreenFragments() {
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when(destination.id){
+                R.id.suraFragment -> binding.bottomNav.visibility = View.GONE
+                R.id.hadethFragment -> binding.bottomNav.visibility = View.GONE
+                else -> {
+                    binding.bottomNav.visibility = View.VISIBLE
+                }
+            }
+        }
     }
 
     private fun setUpNavigationComponent() {
-        val navHostFragment = supportFragmentManager
+        navHostFragment = supportFragmentManager
             .findFragmentById(R.id.fragmentContainerView) as NavHostFragment
-        val navController = navHostFragment.navController
+        navController = navHostFragment.navController
         binding.bottomNav.setupWithNavController(navController)
     }
 
