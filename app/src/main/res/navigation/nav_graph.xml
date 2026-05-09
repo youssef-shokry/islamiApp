@@ -29,18 +29,18 @@
         android:id="@+id/sebhaFragment"
         android:name="com.route.islamie_app101.ui.application_screens.sebha_fragment.SebhaFragment"
         android:label="fragment_sebha"
-        tools:layout="@layout/fragment_sebha"/>
+        tools:layout="@layout/fragment_sebha" />
 
     <fragment
         android:id="@+id/radioFragment"
         android:name="com.route.islamie_app101.ui.application_screens.radio_fragments.RadioFragment"
         android:label="fragment_radio"
-        tools:layout="@layout/fragment_radio"/>
+        tools:layout="@layout/fragment_radio" />
     <fragment
         android:id="@+id/suraFragment"
         android:name="com.route.islamie_app101.ui.application_screens.quran_fragments.SuraFragment"
         android:label="fragment_sura"
-        tools:layout="@layout/fragment_sura" >
+        tools:layout="@layout/fragment_sura">
         <action
             android:id="@+id/action_suraFragment_to_selectSuraFragment"
             app:destination="@id/selectSuraFragment" />
@@ -52,7 +52,7 @@
         android:id="@+id/hadethFragment"
         android:name="com.route.islamie_app101.ui.application_screens.hadeth_fragments.HadethFragment"
         android:label="fragment_hadeth"
-        tools:layout="@layout/fragment_hadeth" >
+        tools:layout="@layout/fragment_hadeth">
         <action
             android:id="@+id/action_hadethFragment_to_selectHadethFragment"
             app:destination="@id/selectHadethFragment" />

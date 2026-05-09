@@ -13,6 +13,8 @@ class ViewModel: ViewModel(){
     private val ahadethRepo: AhadethRepository = ImpAhadethRepository()
     val suraList = quranRepo.getSurahsList()
     private var ahadethList: List<HadethDataModel> = emptyList()
+    var selectSuraRvLastPosition = 0
+    var selectSuraRvLastPositionOffset = 0
 
     fun getAhadethList(context: Context): List<HadethDataModel>{
         ahadethList = ahadethRepo.getAhadethList(context)
