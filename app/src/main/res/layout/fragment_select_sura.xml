@@ -42,9 +42,10 @@
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@id/sura_list_string"
-        app:layout_constraintStart_toStartOf="@id/sura_list_string"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="@id/background_pic"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="10dp"
         tools:listitem="@layout/sura_list_item"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

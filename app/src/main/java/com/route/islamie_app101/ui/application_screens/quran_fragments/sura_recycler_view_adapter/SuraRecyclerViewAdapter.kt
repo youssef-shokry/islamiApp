@@ -7,6 +7,8 @@ import com.route.islamie_app101.databinding.SuraAyaItemBinding
 class SuraRecyclerViewAdapter(val ayatList: List<String>) :
     RecyclerView.Adapter<SuraRecyclerViewAdapter.AyaViewHolder>() {
 
+        var ayaClick: AyaClick? = null
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -27,11 +29,17 @@ class SuraRecyclerViewAdapter(val ayatList: List<String>) :
     override fun getItemCount(): Int = ayatList.size
 
 
-    class AyaViewHolder(val binding: SuraAyaItemBinding) :
+    inner class AyaViewHolder(val binding: SuraAyaItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
         fun bind(aya: String) {
-            binding.aya.text = aya
+            binding.ayaText.text = aya
+            ayaClick()
+        }
+
+        fun ayaClick(){
+            binding.root.setOnClickListener {
+                ayaClick?.onAyaClick(binding)
+            }
         }
     }
 }

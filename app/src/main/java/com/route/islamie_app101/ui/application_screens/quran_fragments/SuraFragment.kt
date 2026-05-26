@@ -5,10 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.route.islamie_app101.R
 import com.route.islamie_app101.data.utils.Constants.Companion.SURA_PATH
 import com.route.islamie_app101.databinding.FragmentSuraBinding
+import com.route.islamie_app101.databinding.SuraAyaItemBinding
+import com.route.islamie_app101.ui.application_screens.quran_fragments.sura_recycler_view_adapter.AyaClick
 import com.route.islamie_app101.ui.application_screens.quran_fragments.sura_recycler_view_adapter.SuraRecyclerViewAdapter
 
 class SuraFragment : Fragment() {
@@ -44,6 +48,22 @@ class SuraFragment : Fragment() {
 
             findNavController().navigate(action)
         }
+        onAyaClick()
+    }
+
+    private fun onAyaClick() {
+        val goldBackground =
+            ContextCompat.getDrawable(requireContext(), R.drawable.selected_aya_stroke)
+        val black = ContextCompat.getColor(requireContext(), R.color.black)
+
+        var isItemSelected = false
+
+        adapter.ayaClick = object : AyaClick {
+            override fun onAyaClick(aya: SuraAyaItemBinding) {
+                aya.root.background = goldBackground
+                aya.ayaText.setTextColor(black)
+            }
+        }
     }
 
     private fun initRv() {
@@ -58,8 +78,8 @@ class SuraFragment : Fragment() {
         var line = reader.readLine()
 
         var index = 1
-        while (line != null){
-            if (line == ""){
+        while (line != null) {
+            if (line == "") {
                 line = reader.readLine()
                 continue
             }

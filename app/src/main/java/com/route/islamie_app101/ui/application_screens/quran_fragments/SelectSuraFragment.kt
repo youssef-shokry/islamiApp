@@ -47,7 +47,7 @@ class SelectSuraFragment : Fragment() {
         val layoutManager = binding.surasRecyclerView.layoutManager as LinearLayoutManager
 
         layoutManager.scrollToPositionWithOffset(
-            viewModel.selectSuraRvLastPosition, viewModel.selectSuraRvLastPositionOffset
+            viewModel.surasListLastPosition, viewModel.surasListLastPositionOffset
         )
     }
 
@@ -59,10 +59,10 @@ class SelectSuraFragment : Fragment() {
 
     private fun savePosition() {
         val layoutManager = binding.surasRecyclerView.layoutManager as LinearLayoutManager
-        viewModel.selectSuraRvLastPosition = layoutManager.findFirstVisibleItemPosition()
+        viewModel.surasListLastPosition = layoutManager.findFirstVisibleItemPosition()
 
-        val view = layoutManager.findViewByPosition(viewModel.selectSuraRvLastPosition)
-        viewModel.selectSuraRvLastPositionOffset = view?.top ?: 0
+        val view = layoutManager.findViewByPosition(viewModel.surasListLastPosition)
+        viewModel.surasListLastPositionOffset = view?.top ?: 0
     }
 
     override fun onDestroyView() {
