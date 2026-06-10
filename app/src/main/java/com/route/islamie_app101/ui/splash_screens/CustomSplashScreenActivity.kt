@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.WindowCompat
 import com.route.islamie_app101.MainActivity
 import com.route.islamie_app101.databinding.ActivityCustomSplashScreenBinding
 
@@ -19,7 +20,7 @@ class CustomSplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
-
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         binding = ActivityCustomSplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

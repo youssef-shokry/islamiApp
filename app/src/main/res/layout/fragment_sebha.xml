@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginVertical="30dp"
+        android:layout_margin="30dp"
         android:src="@drawable/islami_logo"/>
 
 
@@ -28,11 +28,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/sebha_head"
-        app:layout_constraintStart_toStartOf="@id/background_pic"
-        app:layout_constraintEnd_toEndOf="@id/background_pic"
         app:layout_constraintTop_toBottomOf="@id/islami_logo"
-        app:layout_constraintBottom_toTopOf="@id/sebha_body"
-        android:layout_marginTop="34dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"
         android:src="@drawable/sebha_head"
         />
 
@@ -41,25 +40,24 @@
         android:layout_height="wrap_content"
         android:id="@+id/sebha_body"
         app:layout_constraintTop_toBottomOf="@id/sebha_head"
-        app:layout_constraintStart_toStartOf="@id/sebha_head"
-        app:layout_constraintEnd_toEndOf="@id/sebha_head"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/sebha_body"
-        android:layout_marginTop="-10dp"/>
+        />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/tasbeh_text"
         style="@style/applicationTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:textColor="@color/white"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="@id/sebha_body"
+        app:layout_constraintBottom_toBottomOf="@id/sebha_body"
         app:layout_constraintStart_toStartOf="@id/sebha_body"
         app:layout_constraintEnd_toEndOf="@id/sebha_body"
-        app:layout_constraintTop_toTopOf="@id/sebha_body"
-        app:layout_constraintBottom_toTopOf="@id/tasbeh_numbers"
-        tools:text="سبحان الله"
-        android:textStyle="bold"
-        android:textSize="36sp"
-        />
+        tools:text="سبحان الله" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
@@ -68,12 +66,11 @@
         app:layout_constraintTop_toBottomOf="@id/tasbeh_text"
         app:layout_constraintStart_toStartOf="@id/tasbeh_text"
         app:layout_constraintEnd_toEndOf="@id/tasbeh_text"
-        app:layout_constraintBottom_toBottomOf="@id/sebha_body"
-        android:layout_marginBottom="30dp"
         style="@style/applicationTextStyle"
         android:textColor="@color/white"
         tools:text="30"
-        android:textSize="36sp"/>
+        android:layout_marginTop="18dp"
+        android:textSize="32sp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
