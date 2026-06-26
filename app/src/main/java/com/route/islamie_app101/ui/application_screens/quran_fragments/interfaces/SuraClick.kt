@@ -1,4 +1,4 @@
-package com.route.islamie_app101.ui.application_screens.quran_fragments.sura_recycler_view_adapter
+package com.route.islamie_app101.ui.application_screens.quran_fragments.interfaces
 
 import com.route.islamie_app101.domain.data_models.SuraDataModel
 

@@ -12,7 +12,6 @@ import com.route.islamie_app101.R
 import com.route.islamie_app101.data.utils.Constants.Companion.SURA_PATH
 import com.route.islamie_app101.databinding.FragmentSuraBinding
 import com.route.islamie_app101.databinding.SuraAyaItemBinding
-import com.route.islamie_app101.ui.application_screens.quran_fragments.sura_recycler_view_adapter.AyaClick
 import com.route.islamie_app101.ui.application_screens.quran_fragments.sura_recycler_view_adapter.SuraRecyclerViewAdapter
 
 class SuraFragment : Fragment() {
@@ -47,22 +46,6 @@ class SuraFragment : Fragment() {
             val action = SuraFragmentDirections.actionSuraFragmentToSelectSuraFragment()
 
             findNavController().navigate(action)
-        }
-        onAyaClick()
-    }
-
-    private fun onAyaClick() {
-        val goldBackground =
-            ContextCompat.getDrawable(requireContext(), R.drawable.selected_aya_stroke)
-        val black = ContextCompat.getColor(requireContext(), R.color.black)
-
-        var isItemSelected = false
-
-        adapter.ayaClick = object : AyaClick {
-            override fun onAyaClick(aya: SuraAyaItemBinding) {
-                aya.root.background = goldBackground
-                aya.ayaText.setTextColor(black)
-            }
         }
     }
 

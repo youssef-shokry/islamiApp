@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.route.islamie_app101.R
 import com.route.islamie_app101.databinding.SuraListItemBinding
 import com.route.islamie_app101.domain.data_models.SuraDataModel
+import com.route.islamie_app101.ui.application_screens.quran_fragments.interfaces.SuraClick
 
 class SelectSuraRecyclerViewAdapter(val surahsList: List<SuraDataModel>) :
     RecyclerView.Adapter<SelectSuraRecyclerViewAdapter.SuraViewHolder>() {

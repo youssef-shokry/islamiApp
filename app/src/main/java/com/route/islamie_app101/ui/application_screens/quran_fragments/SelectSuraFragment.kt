@@ -12,7 +12,7 @@ import com.route.islamie_app101.databinding.FragmentSelectSuraBinding
 import com.route.islamie_app101.domain.data_models.SuraDataModel
 import com.route.islamie_app101.ui.application_screens.quran_fragments.sura_recycler_view_adapter.SelectSuraRecyclerViewAdapter
 import com.route.islamie_app101.ui.ViewModel
-import com.route.islamie_app101.ui.application_screens.quran_fragments.sura_recycler_view_adapter.SuraClick
+import com.route.islamie_app101.ui.application_screens.quran_fragments.interfaces.SuraClick
 
 class SelectSuraFragment : Fragment() {
 
