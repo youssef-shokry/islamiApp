@@ -9,7 +9,6 @@ import com.route.islamie_app101.databinding.SuraAyaItemBinding
 
 class SuraRecyclerViewAdapter(private val ayatList: List<String>) :
     RecyclerView.Adapter<SuraRecyclerViewAdapter.AyaViewHolder>() {
-
     var selectedPosition = RecyclerView.NO_POSITION
 
     override fun onCreateViewHolder(
@@ -49,14 +48,6 @@ class SuraRecyclerViewAdapter(private val ayatList: List<String>) :
             val gold =
                 ContextCompat.getColor(binding.root.context, R.color.gold)
 
-            if(position == selectedPosition){
-                binding.root.background = goldBackground
-                binding.ayaText.setTextColor(black)
-            }else{
-                binding.root.background = goldStroke
-                binding.ayaText.setTextColor(gold)
-            }
-
             binding.root.setOnClickListener {
                 val oldPosition = selectedPosition
 
@@ -65,13 +56,16 @@ class SuraRecyclerViewAdapter(private val ayatList: List<String>) :
                 }else{
                     selectedPosition = position
                 }
+                notifyItemChanged(oldPosition)
+                notifyItemChanged(selectedPosition)
+            }
 
-                if (oldPosition != position){
-                    notifyItemChanged(oldPosition)
-                }
-                if (selectedPosition != RecyclerView.NO_POSITION) {
-                    notifyItemChanged(selectedPosition)
-                }
+            if(position == selectedPosition){
+                binding.root.background = goldBackground
+                binding.ayaText.setTextColor(black)
+            }else{
+                binding.root.background = goldStroke
+                binding.ayaText.setTextColor(gold)
             }
         }
 
