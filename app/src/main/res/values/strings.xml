@@ -10,4 +10,6 @@
     <string name="radio">Radio</string>
     <string name="suras_list">Suras List</string>
     <string name="verses_count">%d Verses</string>
+    <string name="radioR">Radio</string>
+    <string name="reciters">Reciters</string>
 </resources>

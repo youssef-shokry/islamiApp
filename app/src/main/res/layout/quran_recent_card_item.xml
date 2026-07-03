@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="320dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardUseCompatPadding="true"
+    android:backgroundTint="@color/gold"
+    app:cardCornerRadius="20dp"
+    android:layout_margin="10dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/sura_en_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/applicationTextStyle"
+            tools:text="Al-Anbiya"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:layout_margin="12dp"
+            android:textColor="@color/black"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/applicationTextStyle"
+            app:layout_constraintTop_toBottomOf="@id/sura_en_name"
+            app:layout_constraintStart_toStartOf="@id/sura_en_name"
+            android:id="@+id/sura_ar_name"
+            tools:text="الأنبياء"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="28sp"
+            android:layout_marginVertical="12dp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sura_verses"
+            style="@style/applicationTextStyle"
+            app:layout_constraintTop_toBottomOf="@id/sura_ar_name"
+            app:layout_constraintStart_toStartOf="@id/sura_ar_name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="112 Verses "
+            android:layout_marginVertical="12dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_pic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/most_recent_icon"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

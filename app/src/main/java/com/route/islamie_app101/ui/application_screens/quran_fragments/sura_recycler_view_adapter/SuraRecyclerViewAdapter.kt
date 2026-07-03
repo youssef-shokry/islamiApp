@@ -9,7 +9,7 @@ import com.route.islamie_app101.databinding.SuraAyaItemBinding
 
 class SuraRecyclerViewAdapter(private val ayatList: List<String>) :
     RecyclerView.Adapter<SuraRecyclerViewAdapter.AyaViewHolder>() {
-    var selectedPosition = RecyclerView.NO_POSITION
+    private var selectedPosition = RecyclerView.NO_POSITION
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -33,37 +33,38 @@ class SuraRecyclerViewAdapter(private val ayatList: List<String>) :
 
     inner class AyaViewHolder(val binding: SuraAyaItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        val goldBackground =
+            ContextCompat.getDrawable(binding.root.context, R.drawable.selected_aya_stroke)
+        val goldStroke =
+            ContextCompat.getDrawable(binding.root.context, R.drawable.ayat_stroke)
+        val black =
+            ContextCompat.getColor(binding.root.context, R.color.black)
+        val gold =
+            ContextCompat.getColor(binding.root.context, R.color.gold)
+
         fun bind(aya: String, position: Int) {
             binding.ayaText.text = aya
             ayaClick(binding, position)
         }
 
-        fun ayaClick(binding: SuraAyaItemBinding, position: Int){
-            val goldBackground =
-                ContextCompat.getDrawable(binding.root.context, R.drawable.selected_aya_stroke)
-            val goldStroke =
-                ContextCompat.getDrawable(binding.root.context, R.drawable.ayat_stroke)
-            val black =
-                ContextCompat.getColor(binding.root.context, R.color.black)
-            val gold =
-                ContextCompat.getColor(binding.root.context, R.color.gold)
+        fun ayaClick(binding: SuraAyaItemBinding, position: Int) {
 
             binding.root.setOnClickListener {
                 val oldPosition = selectedPosition
 
                 if (selectedPosition == position) {
                     selectedPosition = RecyclerView.NO_POSITION
-                }else{
+                } else {
                     selectedPosition = position
                 }
                 notifyItemChanged(oldPosition)
                 notifyItemChanged(selectedPosition)
             }
 
-            if(position == selectedPosition){
+            if (position == selectedPosition) {
                 binding.root.background = goldBackground
                 binding.ayaText.setTextColor(black)
-            }else{
+            } else {
                 binding.root.background = goldStroke
                 binding.ayaText.setTextColor(gold)
             }
