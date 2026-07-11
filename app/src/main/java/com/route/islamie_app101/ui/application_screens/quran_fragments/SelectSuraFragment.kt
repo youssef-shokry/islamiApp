@@ -32,14 +32,13 @@ class SelectSuraFragment : Fragment() {
             override fun onSuraClick(sura: SuraDataModel) {
                 val action =
                     SelectSuraFragmentDirections.actionSelectSuraFragmentToSuraFragment(sura)
-
                 findNavController().navigate(action)
             }
         }
     }
 
     private fun setUpAdapter() {
-        adapter = SelectSuraRecyclerViewAdapter(viewModel.suraList)
+        adapter = SelectSuraRecyclerViewAdapter(viewModel.surasList)
         binding.surasRecyclerView.adapter = adapter
     }
 
@@ -67,8 +66,6 @@ class SelectSuraFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-
         savePosition()
     }
-
 }

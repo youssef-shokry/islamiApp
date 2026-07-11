@@ -5,8 +5,5 @@ import com.route.islamie_app101.domain.data_models.SuraDataModel
 import com.route.islamie_app101.domain.repository.quran_repository.QuranRepository
 
 class ImpQuranRepository : QuranRepository {
-
-    override fun getSurahsList(): List<SuraDataModel> {
-        return surahsList
-    }
+    override fun getSurahsList(): List<SuraDataModel> = surahsList
 }

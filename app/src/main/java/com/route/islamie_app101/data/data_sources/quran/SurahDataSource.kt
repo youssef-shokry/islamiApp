@@ -353,10 +353,10 @@ object SurahDataSource {
         "6"
     )
     val surahsList : List<SuraDataModel> = mutableListOf<SuraDataModel>().also { surahsList ->
-        for (i in 0 until surahArabicName.size) {
+        for ((i, element) in surahArabicName.withIndex()) {
             surahsList.add(SuraDataModel(
                 id = (i + 1).toString(),
-                suraNameAr = surahArabicName[i],
+                suraNameAr = element,
                 suraNameEn = surahEnglishName[i],
                 versesNumber = surahVersesNumber[i]
             ))

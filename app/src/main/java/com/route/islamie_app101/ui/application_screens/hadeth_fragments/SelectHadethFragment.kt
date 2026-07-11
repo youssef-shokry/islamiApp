@@ -43,8 +43,8 @@ class SelectHadethFragment : Fragment() {
     private fun initListeners() {
         adapter.hadethClick = object : HadethClick {
             override fun onHadethClick(hadeth: HadethDataModel) {
-                val action = SelectHadethFragmentDirections.actionSelectHadethFragmentToHadethFragment(hadeth)
-
+                val action =
+                    SelectHadethFragmentDirections.actionSelectHadethFragmentToHadethFragment(hadeth)
                 findNavController().navigate(action)
             }
         }
