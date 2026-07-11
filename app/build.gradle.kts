@@ -42,6 +42,7 @@ android {
 }
 
 dependencies {
+    //Android Dependancies
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -62,8 +63,12 @@ dependencies {
     implementation(libs.androidx.viewpager2)
     //Kotlin Coroutines Dependency
     implementation(libs.kotlinx.coroutines.android)
-    // ViewModel Dependency
+    //ViewModel Dependency
     implementation(libs.androidx.lifecycle.viewmodel)
-    // LiveData Dependency
+    //LiveData Dependency
     implementation(libs.androidx.lifecycle.livedata)
+    //Retrofit
+    implementation(libs.retrofit)
+    //Retrifit Gson Converter
+    implementation(libs.converter.gson)
 }
