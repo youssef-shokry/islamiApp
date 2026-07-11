@@ -7,7 +7,7 @@ import com.route.islamie_app101.domain.repository.hadeth_repository.AhadethRepos
 class GetAhadethUseCase(val ahadethRepo: AhadethRepository) {
 
     fun invoke(context: Context): List<HadethDataModel> {
-        return ahadethRepo.getAhadethList(context);
+        return ahadethRepo.getAhadethList(context)
     }
 
 }
