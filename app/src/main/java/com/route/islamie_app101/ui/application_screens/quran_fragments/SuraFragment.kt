@@ -29,7 +29,7 @@ class SuraFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initViews()
         initRv()
-        intiAyaList(args.sura.id.toInt())
+        initAyaList(args.sura.id.toInt())
         initClickListeners()
     }
 
@@ -51,7 +51,7 @@ class SuraFragment : Fragment() {
         binding.ayatRecyclerView.adapter = adapter
     }
 
-    private fun intiAyaList(id: Int): List<String> {
+    private fun initAyaList(id: Int): List<String> {
         val inputStream = requireContext().assets.open("${SURA_PATH}${id}.txt")
         val reader = inputStream.bufferedReader()
 
