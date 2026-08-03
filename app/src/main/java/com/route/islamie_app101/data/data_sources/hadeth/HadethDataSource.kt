@@ -1,7 +1,7 @@
 package com.route.islamie_app101.data.data_sources.hadeth
 
 import android.content.Context
-import com.route.islamie_app101.data.utils.Constants.Companion.AHADETH_PATH
+import com.route.islamie_app101.utils.Constants.Companion.AHADETH_PATH
 import com.route.islamie_app101.domain.data_models.HadethDataModel
 
 object HadethDataSource {

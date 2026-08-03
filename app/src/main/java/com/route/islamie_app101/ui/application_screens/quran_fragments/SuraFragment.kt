@@ -5,13 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.route.islamie_app101.R
-import com.route.islamie_app101.data.utils.Constants.Companion.SURA_PATH
+import com.route.islamie_app101.utils.Constants.Companion.SURA_PATH
 import com.route.islamie_app101.databinding.FragmentSuraBinding
-import com.route.islamie_app101.databinding.SuraAyaItemBinding
 import com.route.islamie_app101.ui.application_screens.quran_fragments.sura_recycler_view_adapter.SuraRecyclerViewAdapter
 
 class SuraFragment : Fragment() {
