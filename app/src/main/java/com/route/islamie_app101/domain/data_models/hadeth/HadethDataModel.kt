@@ -1,4 +1,4 @@
-package com.route.islamie_app101.domain.data_models
+package com.route.islamie_app101.domain.data_models.hadeth
 
 import java.io.Serializable
 

@@ -1,7 +1,8 @@
 package com.route.islamie_app101.domain.repository.radio_repository.radio
 
-import com.route.islamie_app101.data.data_models.radio.RadiosItem // TODO Fix This
+import com.route.islamie_app101.domain.radio.RadioDataModel
+import com.route.islamie_app101.domain.utils.ApiResult
 
 interface RadioRepository {
-    suspend fun getRadioList(): List<RadiosItem>
+    suspend fun getRadiosList(): ApiResult<List<RadioDataModel>>
 }

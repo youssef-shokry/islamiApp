@@ -1,7 +1,5 @@
 package com.route.islamie_app101.data.apis
 
-import com.route.islamie_app101.data.apis.radio_apis.RadioWebServices
-import com.route.islamie_app101.data.apis.reciters_apis.RecitersWebServices
 import com.route.islamie_app101.utils.Constants.Companion.BASE_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -12,7 +10,5 @@ object ApiManager {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    fun getRadioWebServices(): RadioWebServices = retrofit.create(RadioWebServices::class.java)
-    fun getReciterWebServices(): RecitersWebServices =
-        retrofit.create(RecitersWebServices::class.java)
+    fun getWebServices() : WebServices = retrofit.create(WebServices::class.java)
 }

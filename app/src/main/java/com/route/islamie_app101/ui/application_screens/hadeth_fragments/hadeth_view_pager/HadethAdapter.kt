@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.route.islamie_app101.databinding.HadethCardItemBinding
-import com.route.islamie_app101.domain.data_models.HadethDataModel
+import com.route.islamie_app101.domain.data_models.hadeth.HadethDataModel
 
 class HadethAdapter(val ahadethList: List<HadethDataModel>) :
     RecyclerView.Adapter<HadethAdapter.HadethViewHolder>() {

@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.route.islamie_app101.databinding.FragmentSelectHadethBinding
-import com.route.islamie_app101.domain.data_models.HadethDataModel
+import com.route.islamie_app101.domain.data_models.hadeth.HadethDataModel
 import com.route.islamie_app101.ui.ViewModel
 import com.route.islamie_app101.ui.application_screens.hadeth_fragments.hadeth_view_pager.HadethAdapter
 import com.route.islamie_app101.ui.application_screens.hadeth_fragments.hadeth_view_pager.HadethClick

@@ -46,7 +46,7 @@
             app:destination="@id/selectSuraFragment" />
         <argument
             android:name="sura"
-            app:argType="com.route.islamie_app101.domain.data_models.SuraDataModel" />
+            app:argType="com.route.islamie_app101.domain.data_models.sura.SuraDataModel" />
     </fragment>
     <fragment
         android:id="@+id/hadethFragment"
@@ -58,6 +58,6 @@
             app:destination="@id/selectHadethFragment" />
         <argument
             android:name="hadeth"
-            app:argType="com.route.islamie_app101.domain.data_models.HadethDataModel" />
+            app:argType="com.route.islamie_app101.domain.data_models.hadeth.HadethDataModel" />
     </fragment>
 </navigation>

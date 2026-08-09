@@ -1,10 +1,33 @@
 package com.route.islamie_app101.data.repositorys.radio_repository.radio_tab
 
-import com.route.islamie_app101.data.data_models.radio.RadiosItem
+import com.route.islamie_app101.data.data_sources.radio.RadioDataSource
+import com.route.islamie_app101.data.mappers.RadioMapper
+import com.route.islamie_app101.data.utils.isConnected
+import com.route.islamie_app101.domain.radio.RadioDataModel
 import com.route.islamie_app101.domain.repository.radio_repository.radio.RadioRepository
+import com.route.islamie_app101.domain.utils.ApiResult
 
-class ImplRadioRepository : RadioRepository {
-    override suspend fun getRadioList(): List<RadiosItem> {
-        TODO("Not yet implemented")
+class ImplRadioRepository(
+    val radioDataSource: RadioDataSource,
+    val radioMapper: RadioMapper
+) : RadioRepository {
+    override suspend fun getRadiosList(): ApiResult<List<RadioDataModel>> {
+        return try {
+            if (isConnected()) {
+                when (val result = radioDataSource.loadRadioSources()) {
+                    is ApiResult.Success -> {
+                        ApiResult.Success(radioMapper.mapRadioList(result.data))
+                    }
+
+                    is ApiResult.Error -> {
+                        ApiResult.Error(result.errorMessage)
+                    }
+                }
+            } else {
+                ApiResult.Error("Check the internet connection")
+            }
+        } catch (t: Throwable) {
+            ApiResult.Error(t.localizedMessage ?: "Something went wrong try again")
+        }
     }
 }
