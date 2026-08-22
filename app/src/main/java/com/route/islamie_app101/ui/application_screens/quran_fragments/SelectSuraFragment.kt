@@ -5,20 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.route.islamie_app101.databinding.FragmentSelectSuraBinding
 import com.route.islamie_app101.domain.data_models.sura.SuraDataModel
 import com.route.islamie_app101.ui.application_screens.quran_fragments.sura_recycler_view_adapter.SelectSuraRecyclerViewAdapter
-import com.route.islamie_app101.ui.ViewModel
+import com.route.islamie_app101.ui.IslamiViewModel
 import com.route.islamie_app101.ui.application_screens.quran_fragments.interfaces.SuraClick
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SelectSuraFragment : Fragment() {
 
     private lateinit var binding: FragmentSelectSuraBinding
     private lateinit var adapter: SelectSuraRecyclerViewAdapter
-    private val viewModel: ViewModel by activityViewModels()
+    private val islamiViewModel: IslamiViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -38,7 +40,7 @@ class SelectSuraFragment : Fragment() {
     }
 
     private fun setUpAdapter() {
-        adapter = SelectSuraRecyclerViewAdapter(viewModel.surasList)
+        adapter = SelectSuraRecyclerViewAdapter(islamiViewModel.surasList)
         binding.surasRecyclerView.adapter = adapter
     }
 
@@ -46,7 +48,7 @@ class SelectSuraFragment : Fragment() {
         val layoutManager = binding.surasRecyclerView.layoutManager as LinearLayoutManager
 
         layoutManager.scrollToPositionWithOffset(
-            viewModel.surasListLastPosition, viewModel.surasListLastPositionOffset
+            islamiViewModel.surasListLastPosition, islamiViewModel.surasListLastPositionOffset
         )
     }
 
@@ -58,10 +60,10 @@ class SelectSuraFragment : Fragment() {
 
     private fun savePosition() {
         val layoutManager = binding.surasRecyclerView.layoutManager as LinearLayoutManager
-        viewModel.surasListLastPosition = layoutManager.findFirstVisibleItemPosition()
+        islamiViewModel.surasListLastPosition = layoutManager.findFirstVisibleItemPosition()
 
-        val view = layoutManager.findViewByPosition(viewModel.surasListLastPosition)
-        viewModel.surasListLastPositionOffset = view?.top ?: 0
+        val view = layoutManager.findViewByPosition(islamiViewModel.surasListLastPosition)
+        islamiViewModel.surasListLastPositionOffset = view?.top ?: 0
     }
 
     override fun onDestroyView() {

@@ -11,17 +11,18 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.route.islamie_app101.databinding.FragmentSelectHadethBinding
 import com.route.islamie_app101.domain.data_models.hadeth.HadethDataModel
-import com.route.islamie_app101.ui.ViewModel
+import com.route.islamie_app101.ui.IslamiViewModel
 import com.route.islamie_app101.ui.application_screens.hadeth_fragments.hadeth_view_pager.HadethAdapter
 import com.route.islamie_app101.ui.application_screens.hadeth_fragments.hadeth_view_pager.HadethClick
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.abs
 
-
+@AndroidEntryPoint
 class SelectHadethFragment : Fragment() {
 
     private lateinit var binding: FragmentSelectHadethBinding
     private lateinit var adapter: HadethAdapter
-    private val viewModel: ViewModel by viewModels()
+    private val islamiViewModel: IslamiViewModel by viewModels()
     private var ahadethList: List<HadethDataModel> = emptyList()
 
     override fun onCreateView(
@@ -51,7 +52,7 @@ class SelectHadethFragment : Fragment() {
     }
 
     private fun initHadethContent() {
-        ahadethList = viewModel.getAhadethList(requireContext())
+        ahadethList = islamiViewModel.ahadethList
     }
 
     private fun initTransformer() {

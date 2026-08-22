@@ -3,13 +3,14 @@ package com.route.islamie_app101.data.repositorys.radio_repository.radio_tab
 import com.route.islamie_app101.data.data_sources.radio.RadioDataSource
 import com.route.islamie_app101.data.mappers.RadioMapper
 import com.route.islamie_app101.data.utils.isConnected
-import com.route.islamie_app101.domain.radio.RadioDataModel
+import com.route.islamie_app101.domain.data_models.radio.RadioDataModel
 import com.route.islamie_app101.domain.repository.radio_repository.radio.RadioRepository
 import com.route.islamie_app101.domain.utils.ApiResult
+import javax.inject.Inject
 
-class ImplRadioRepository(
-    val radioDataSource: RadioDataSource,
-    val radioMapper: RadioMapper
+class ImplRadioRepository @Inject constructor(
+    private val radioDataSource: RadioDataSource,
+    private val radioMapper: RadioMapper
 ) : RadioRepository {
     override suspend fun getRadiosList(): ApiResult<List<RadioDataModel>> {
         return try {

@@ -9,9 +9,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.route.islamie_app101.R
 import com.route.islamie_app101.databinding.FragmentSebhaBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Runnable
 
-
+@AndroidEntryPoint
 class SebhaFragment : Fragment() {
 
     private lateinit var binding: FragmentSebhaBinding

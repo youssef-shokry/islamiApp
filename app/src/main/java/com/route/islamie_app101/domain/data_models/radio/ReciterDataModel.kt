@@ -1,4 +1,4 @@
-package com.route.islamie_app101.domain.radio
+package com.route.islamie_app101.domain.data_models.radio
 
 data class ReciterDataModel(
     val name: String? = null,

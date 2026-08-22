@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.route.islamie_app101.databinding.FragmentRadioBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RadioFragment : Fragment() {
     private lateinit var binding: FragmentRadioBinding
 

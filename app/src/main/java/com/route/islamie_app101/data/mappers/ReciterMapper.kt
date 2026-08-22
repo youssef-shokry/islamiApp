@@ -1,9 +1,10 @@
 package com.route.islamie_app101.data.mappers
 
 import com.route.islamie_app101.data.data_models.reciters.RecitersItem
-import com.route.islamie_app101.domain.radio.ReciterDataModel
+import com.route.islamie_app101.domain.data_models.radio.ReciterDataModel
+import javax.inject.Inject
 
-class ReciterMapper {
+class ReciterMapper @Inject constructor(){
     fun mapReciterItem(recitersItem: RecitersItem?): ReciterDataModel = ReciterDataModel(
         name = recitersItem?.name,
         id = recitersItem?.id,

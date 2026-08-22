@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.navigation.safeargs)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt.android)
 }
 
 android {
@@ -71,4 +73,7 @@ dependencies {
     implementation(libs.retrofit)
     //Retrifit Gson Converter
     implementation(libs.converter.gson)
+    //Hilt Dagger
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
 }
