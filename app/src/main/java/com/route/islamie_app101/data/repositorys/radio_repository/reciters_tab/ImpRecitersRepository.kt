@@ -2,7 +2,6 @@ package com.route.islamie_app101.data.repositorys.radio_repository.reciters_tab
 
 import com.route.islamie_app101.data.data_sources.radio.RadioDataSource
 import com.route.islamie_app101.data.mappers.ReciterMapper
-import com.route.islamie_app101.data.utils.isConnected
 import com.route.islamie_app101.domain.data_models.radio.ReciterDataModel
 import com.route.islamie_app101.domain.repository.radio_repository.reciters.RecitersRepository
 import com.route.islamie_app101.domain.utils.ApiResult
@@ -14,7 +13,7 @@ class ImpRecitersRepository @Inject constructor(
 ) : RecitersRepository {
     override suspend fun getRecitersList(): ApiResult<List<ReciterDataModel>> {
         return try {
-            if (isConnected()) {
+            if (true) { //Todo make the connection function
                 when (val result = recitersDataSource.loadRecitersSources()) {
                     is ApiResult.Success -> {
                         ApiResult.Success(reciterMapper.mapReciterList(result.data))

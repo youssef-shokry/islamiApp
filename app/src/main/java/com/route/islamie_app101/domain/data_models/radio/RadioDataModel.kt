@@ -1,3 +1,7 @@
 package com.route.islamie_app101.domain.data_models.radio
 
-data class RadioDataModel(val name: String? = null, val url: String? = null, val id: Int? = null)
+data class RadioDataModel(
+    val name: String? = null,
+    val id: Int? = null,
+    val url: String? = null
+)

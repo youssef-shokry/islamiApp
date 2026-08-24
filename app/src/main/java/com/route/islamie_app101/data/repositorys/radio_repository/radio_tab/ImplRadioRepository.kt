@@ -2,7 +2,6 @@ package com.route.islamie_app101.data.repositorys.radio_repository.radio_tab
 
 import com.route.islamie_app101.data.data_sources.radio.RadioDataSource
 import com.route.islamie_app101.data.mappers.RadioMapper
-import com.route.islamie_app101.data.utils.isConnected
 import com.route.islamie_app101.domain.data_models.radio.RadioDataModel
 import com.route.islamie_app101.domain.repository.radio_repository.radio.RadioRepository
 import com.route.islamie_app101.domain.utils.ApiResult
@@ -14,7 +13,7 @@ class ImplRadioRepository @Inject constructor(
 ) : RadioRepository {
     override suspend fun getRadiosList(): ApiResult<List<RadioDataModel>> {
         return try {
-            if (isConnected()) {
+            if (true) { //Todo make the connection function
                 when (val result = radioDataSource.loadRadioSources()) {
                     is ApiResult.Success -> {
                         ApiResult.Success(radioMapper.mapRadioList(result.data))
