@@ -97,6 +97,7 @@ class RadioFragment : Fragment() {
                     hideLoading()
                     radioAdapter.submitList(resource.data)
                 }
+
                 is Resource.Error -> {//Todo}
                 }
             }
@@ -106,10 +107,8 @@ class RadioFragment : Fragment() {
     fun loadRecitersList() {
         viewModel.recitersState.observe(viewLifecycleOwner) { resource ->
             when (resource) {
-                is Resource.Loading -> {
-                    reciterAdapter
-                    showLoading()
-                }
+                is Resource.Loading -> showLoading()
+
                 is Resource.Success -> {
                     hideLoading()
                     reciterAdapter.submitList(resource.data)
