@@ -53,7 +53,8 @@ class IslamiViewModel @Inject constructor(
             try {
                 when (val response = reciterUseCase.invoke()) {
                     is ApiResult.Success -> recitersState.value = Resource.Success(response.data)
-                    is ApiResult.Error -> recitersState.value = Resource.Error(response.errorMessage)
+                    is ApiResult.Error -> recitersState.value =
+                        Resource.Error(response.errorMessage)
                 }
             } catch (t: Throwable) {
                 recitersState.value =
