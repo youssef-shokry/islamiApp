@@ -24,8 +24,10 @@ class RadioFragment : Fragment() {
     private lateinit var viewPagerAdapter: RadioPagerAdapter
     private lateinit var radioAdapter: RadioItemAdapter<RadioDataModel>
     private lateinit var reciterAdapter: RadioItemAdapter<ReciterDataModel>
-    private var radioList: List<RadioDataModel> = emptyList()
-    private var reciterList: List<ReciterDataModel> = emptyList()
+    private var radioList: List<RadioDataModel?> = emptyList()
+    private var reciterList: List<ReciterDataModel?> = emptyList()
+    private var isRadioListTheSame: Boolean = false
+    private var isRecitersListTheSame: Boolean = false
     private val viewModel: IslamiViewModel by viewModels()
 
     override fun onCreateView(
@@ -41,8 +43,8 @@ class RadioFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerViewsAdapter()
         setupViewPagerAdapter()
-        loadRadioList()
-        loadRecitersList()
+        radioListState()
+        recitersListState()
     }
 
     fun setupViewPagerAdapter() {
@@ -60,10 +62,9 @@ class RadioFragment : Fragment() {
         binding.radioViewPager.registerOnPageChangeCallback(
             object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
                     when (position) {
-                        0 -> viewModel.loadRadioTab()
-                        1 -> viewModel.loadRecitersTab()
+                        0 -> if(!isRadioListTheSame) viewModel.loadRadioList()
+                        1 -> if (!isRecitersListTheSame) viewModel.loadRecitersList()
                     }
                 }
             }
@@ -73,11 +74,11 @@ class RadioFragment : Fragment() {
 
     fun setupRecyclerViewsAdapter() {
         radioAdapter = RadioItemAdapter(radioList) { radioItem, listItem ->
-            radioItem.radioNameText.text = listItem.name
+            radioItem.radioNameText.text = listItem?.name
         }
 
         reciterAdapter = RadioItemAdapter(reciterList) { radioItem, listItem ->
-            radioItem.radioNameText.text = listItem.name
+            radioItem.radioNameText.text = listItem?.name
         }
     }
 
@@ -89,34 +90,65 @@ class RadioFragment : Fragment() {
         binding.loading.visibility = View.GONE
     }
 
-    fun loadRadioList() {
+    fun radioListState() {
         viewModel.radioState.observe(viewLifecycleOwner) { resource ->
             when (resource) {
-                is Resource.Loading -> showLoading()
-                is Resource.Success -> {
-                    hideLoading()
-                    radioAdapter.submitList(resource.data)
+                is Resource.Loading -> {
+                    if (radioList.contains(null).or(radioList.isEmpty())) showLoading()
                 }
 
-                is Resource.Error -> {//Todo}
+                is Resource.Success -> {
+                    if (radioList.isEmpty()) {
+                        radioList = resource.data
+                        radioAdapter.submitList(radioList)
+                        hideLoading()
+                    } else {
+                        if (radioList == resource.data){
+                            isRadioListTheSame = true
+                            return@observe
+                        }
+                        radioList = resource.data
+                        radioAdapter.submitList(radioList)
+                        hideLoading()
+                    }
+                }
+
+                is Resource.Error -> {
+                    //Todo
                 }
             }
         }
     }
 
-    fun loadRecitersList() {
+    fun recitersListState() {
         viewModel.recitersState.observe(viewLifecycleOwner) { resource ->
             when (resource) {
-                is Resource.Loading -> showLoading()
-
-                is Resource.Success -> {
-                    hideLoading()
-                    reciterAdapter.submitList(resource.data)
+                is Resource.Loading -> {
+                    if (reciterList.contains(null).or(reciterList.isEmpty())) showLoading()
                 }
 
-                is Resource.Error -> {//Todo}
+                is Resource.Success -> {
+                    if (reciterList.isEmpty()) {
+                        reciterList = resource.data
+                        reciterAdapter.submitList(reciterList)
+                        hideLoading()
+                    } else {
+                        if (reciterList == resource.data) {
+                            isRecitersListTheSame = true
+                            return@observe
+                        }
+                        reciterList = resource.data
+                        reciterAdapter.submitList(reciterList)
+                        isRecitersListTheSame = false
+                        hideLoading()
+                    }
+                }
+
+                is Resource.Error -> {
+                    //Todo
                 }
             }
         }
     }
+
 }

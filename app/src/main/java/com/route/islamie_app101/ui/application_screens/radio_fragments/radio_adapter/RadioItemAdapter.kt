@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.route.islamie_app101.databinding.RadioItemBinding
 
 class RadioItemAdapter<T>(
-    private var listItems: List<T> = emptyList(),
-    private val bind: (radioItem: RadioItemBinding, listItem: T) -> Unit
+    private var listItems: List<T?>? = emptyList(),
+    private val bind: (radioItem: RadioItemBinding, listItem: T?) -> Unit
 ) :
     RecyclerView.Adapter<RadioItemAdapter.ItemViewHolder>() {
     private lateinit var binding: RadioItemBinding
@@ -23,13 +23,15 @@ class RadioItemAdapter<T>(
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        bind(holder.binding, listItems[position])
+        listItems?.get(position)?.let { item ->
+            bind(holder.binding, item)
+        }
     }
 
-    override fun getItemCount(): Int = listItems.size
+    override fun getItemCount(): Int = listItems?.count { it != null } ?: 0
 
     @SuppressLint("NotifyDataSetChanged")
-    fun submitList(newListItems: List<T>) {
+    fun submitList(newListItems: List<T?>?) {
         listItems = newListItems
         notifyDataSetChanged()
     }

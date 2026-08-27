@@ -32,7 +32,7 @@ class IslamiViewModel @Inject constructor(
     var surasListLastPosition = 0
     var surasListLastPositionOffset = 0
 
-    fun loadRadioTab() {
+    fun loadRadioList() {
         viewModelScope.launch {
             radioState.value = Resource.Loading()
             try {
@@ -47,7 +47,7 @@ class IslamiViewModel @Inject constructor(
         }
     }
 
-    fun loadRecitersTab() {
+    fun loadRecitersList() {
         recitersState.value = Resource.Loading()
         viewModelScope.launch {
             try {
