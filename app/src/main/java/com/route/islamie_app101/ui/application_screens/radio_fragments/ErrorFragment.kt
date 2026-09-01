@@ -15,7 +15,6 @@ class ErrorFragment : DialogFragment() {
 
     private lateinit var binding: FragmentErrorBinding
     private val args by navArgs<ErrorFragmentArgs>()
-    private var retryClicked = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,7 +29,6 @@ class ErrorFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.errorText.text = args.ErrorMessage
         binding.retryButton.setOnClickListener {
-            retryClicked = true
             dismiss()
         }
 
@@ -43,9 +41,6 @@ class ErrorFragment : DialogFragment() {
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        if (!retryClicked){
-            return
-        }
 
         parentFragmentManager.setFragmentResult("RADIO_RETRY", Bundle().apply {
             putInt("TAB_NUM", args.TabNum)

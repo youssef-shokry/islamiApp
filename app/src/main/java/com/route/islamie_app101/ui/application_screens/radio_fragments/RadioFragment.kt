@@ -1,7 +1,6 @@
 package com.route.islamie_app101.ui.application_screens.radio_fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -70,11 +69,13 @@ class RadioFragment : Fragment() {
     private fun loadSelectedTab(position: Int) {
         when (position) {
             0 -> {
-                if (radioList.isEmpty()) viewModel.loadRadioList()
+                if (radioList.all { it == null }
+                        .or(radioList.isEmpty())) viewModel.loadRadioList()
             }
 
             1 -> {
-                if (reciterList.isEmpty()) viewModel.loadRecitersList()
+                if (reciterList.all { it == null }
+                        .or(reciterList.isEmpty())) viewModel.loadRecitersList()
             }
         }
     }
@@ -120,12 +121,10 @@ class RadioFragment : Fragment() {
         viewModel.radioState.observe(viewLifecycleOwner) { resource ->
             when (resource) {
                 is Resource.Loading -> {
-                    Log.e("RadioFragment, Radio", "Loading")
                     if (radioList.contains(null).or(radioList.isEmpty())) showLoading()
                 }
 
                 is Resource.Success -> {
-                    Log.e("RadioFragment, Radio", "Success")
                     if (radioList.isEmpty()) {
                         radioList = resource.data
                         radioAdapter.submitList(radioList)
@@ -141,7 +140,6 @@ class RadioFragment : Fragment() {
                 }
 
                 is Resource.Error -> {
-                    Log.e("RadioFragment, Radio", "Error")
                     showErrorFragment(resource.errorMessage, 0)
                 }
 
@@ -153,12 +151,10 @@ class RadioFragment : Fragment() {
         viewModel.recitersState.observe(viewLifecycleOwner) { resource ->
             when (resource) {
                 is Resource.Loading -> {
-                    Log.e("RadioFragment, Reciters", "Loading")
                     if (reciterList.contains(null).or(reciterList.isEmpty())) showLoading()
                 }
 
                 is Resource.Success -> {
-                    Log.e("RadioFragment, Reciters", "Success")
                     if (reciterList.isEmpty()) {
                         reciterList = resource.data
                         reciterAdapter.submitList(reciterList)
@@ -175,7 +171,6 @@ class RadioFragment : Fragment() {
                 }
 
                 is Resource.Error -> {
-                    Log.e("RadioFragment, Reciters", "Error")
                     showErrorFragment(resource.errorMessage, 1)
                 }
             }
@@ -195,7 +190,6 @@ class RadioFragment : Fragment() {
                 message,
                 tabNum
             )
-        Log.e("ShowErrorFragment", "showErrorFragment")
         findNavController().navigate(action)
     }
 
@@ -207,10 +201,6 @@ class RadioFragment : Fragment() {
             val tabNum = bundle.getInt("TAB_NUM")
             binding.root.post {
                 if (findNavController().currentDestination?.id != R.id.radioFragment) {
-                    Log.e(
-                        "RadioFragment",
-                        "Retry received but RadioFragment is not current destination yet"
-                    )
                     binding.root.post {
                         retryData(tabNum)
                     }
@@ -225,19 +215,12 @@ class RadioFragment : Fragment() {
     private fun retryData(tabNum: Int) {
         when (tabNum) {
             0 -> {
-                Log.e(
-                    "RadioFragment",
-                    "Retrying Radio"
-                )
                 isRadioListTheSame = false
 
                 viewModel.loadRadioList()
             }
+
             1 -> {
-                Log.e(
-                    "RadioFragment",
-                    "Retrying Reciters"
-                )
                 isRecitersListTheSame = false
                 viewModel.loadRecitersList()
             }
