@@ -35,7 +35,11 @@
         android:id="@+id/radioFragment"
         android:name="com.route.islamie_app101.ui.application_screens.radio_fragments.RadioFragment"
         android:label="fragment_radio"
-        tools:layout="@layout/fragment_radio" />
+        tools:layout="@layout/fragment_radio" >
+        <action
+            android:id="@+id/action_radioFragment_to_errorFragment"
+            app:destination="@id/errorFragment" />
+    </fragment>
     <fragment
         android:id="@+id/suraFragment"
         android:name="com.route.islamie_app101.ui.application_screens.quran_fragments.SuraFragment"
@@ -60,4 +64,18 @@
             android:name="hadeth"
             app:argType="com.route.islamie_app101.domain.data_models.hadeth.HadethDataModel" />
     </fragment>
+
+    <dialog
+        android:id="@+id/errorFragment"
+        android:name="com.route.islamie_app101.ui.application_screens.radio_fragments.ErrorFragment"
+        android:label="fragment_error"
+        tools:layout="@layout/fragment_error" >
+        <argument
+            android:name="ErrorMessage"
+            app:argType="string" />
+        <argument
+            android:name="TabNum"
+            app:argType="integer" />
+    </dialog>
+
 </navigation>

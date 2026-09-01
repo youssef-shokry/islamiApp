@@ -33,8 +33,8 @@ class IslamiViewModel @Inject constructor(
     var surasListLastPositionOffset = 0
 
     fun loadRadioList() {
+        radioState.value = Resource.Loading()
         viewModelScope.launch {
-            radioState.value = Resource.Loading()
             try {
                 when (val response = radioUseCase.invoke()) {
                     is ApiResult.Success -> radioState.value = Resource.Success(response.data)

@@ -8,7 +8,6 @@ import com.route.islamie_app101.domain.data_models.hadeth.HadethDataModel
 
 class HadethAdapter(val ahadethList: List<HadethDataModel>) :
     RecyclerView.Adapter<HadethAdapter.HadethViewHolder>() {
-
     var hadethClick: HadethClick? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HadethViewHolder {
@@ -34,7 +33,7 @@ class HadethAdapter(val ahadethList: List<HadethDataModel>) :
             onHadethClick(hadeth)
         }
 
-        fun onHadethClick(hadeth: HadethDataModel){
+        fun onHadethClick(hadeth: HadethDataModel) {
             binding.root.setOnClickListener {
                 hadethClick!!.onHadethClick(hadeth)
             }

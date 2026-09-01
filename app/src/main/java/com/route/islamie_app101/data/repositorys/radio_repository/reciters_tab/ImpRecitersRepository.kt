@@ -25,7 +25,7 @@ class ImpRecitersRepository @Inject constructor(
                         ApiResult.Error(result.errorMessage)
                     }
                 }
-            } else ApiResult.Error("Check the Internet connection")
+            } else ApiResult.Error("Check the Internet Connection")
         } catch (t: Throwable) {
             ApiResult.Error(t.localizedMessage ?: "Something went wrong try again")
         }

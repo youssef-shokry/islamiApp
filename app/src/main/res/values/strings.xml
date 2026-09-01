@@ -12,4 +12,5 @@
     <string name="verses_count">%d Verses</string>
     <string name="radioR">Radio</string>
     <string name="reciters">Reciters</string>
+    <string name="retry">Retry</string>
 </resources>

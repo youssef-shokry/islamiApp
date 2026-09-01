@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.route.islamie_app101.R
@@ -43,14 +44,43 @@ class RadioFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerViewsAdapter()
         setupViewPagerAdapter()
+        linkTabsWithViewPager()
+        loadDataPerTab()
         radioListState()
         recitersListState()
+        observeRetry()
     }
 
     fun setupViewPagerAdapter() {
         viewPagerAdapter = RadioPagerAdapter(radioAdapter, reciterAdapter)
         binding.radioViewPager.adapter = viewPagerAdapter
+    }
 
+    fun loadDataPerTab() {
+        binding.radioViewPager.registerOnPageChangeCallback(
+            object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    loadSelectedTab(position)
+                }
+            }
+        )
+    }
+
+    private fun loadSelectedTab(position: Int) {
+        when (position) {
+            0 -> {
+                if (radioList.all { it == null }
+                        .or(radioList.isEmpty())) viewModel.loadRadioList()
+            }
+
+            1 -> {
+                if (reciterList.all { it == null }
+                        .or(reciterList.isEmpty())) viewModel.loadRecitersList()
+            }
+        }
+    }
+
+    fun linkTabsWithViewPager() {
         TabLayoutMediator(binding.tabLayout, binding.radioViewPager) { tab, position ->
             tab.text = when (position) {
                 0 -> getString(R.string.radioR)
@@ -58,27 +88,24 @@ class RadioFragment : Fragment() {
                 else -> ""
             }
         }.attach()
-
-        binding.radioViewPager.registerOnPageChangeCallback(
-            object : ViewPager2.OnPageChangeCallback() {
-                override fun onPageSelected(position: Int) {
-                    when (position) {
-                        0 -> if(!isRadioListTheSame) viewModel.loadRadioList()
-                        1 -> if (!isRecitersListTheSame) viewModel.loadRecitersList()
-                    }
-                }
-            }
-        )
-
     }
+
 
     fun setupRecyclerViewsAdapter() {
         radioAdapter = RadioItemAdapter(radioList) { radioItem, listItem ->
             radioItem.radioNameText.text = listItem?.name
+
+            radioItem.playButton.setOnClickListener {
+                //TODO
+            }
         }
 
         reciterAdapter = RadioItemAdapter(reciterList) { radioItem, listItem ->
             radioItem.radioNameText.text = listItem?.name
+
+            radioItem.playButton.setOnClickListener {
+                //TODO
+            }
         }
     }
 
@@ -103,8 +130,7 @@ class RadioFragment : Fragment() {
                         radioAdapter.submitList(radioList)
                         hideLoading()
                     } else {
-                        if (radioList == resource.data){
-                            isRadioListTheSame = true
+                        if (radioList == resource.data) {
                             return@observe
                         }
                         radioList = resource.data
@@ -114,8 +140,9 @@ class RadioFragment : Fragment() {
                 }
 
                 is Resource.Error -> {
-                    //Todo
+                    showErrorFragment(resource.errorMessage, 0)
                 }
+
             }
         }
     }
@@ -134,7 +161,6 @@ class RadioFragment : Fragment() {
                         hideLoading()
                     } else {
                         if (reciterList == resource.data) {
-                            isRecitersListTheSame = true
                             return@observe
                         }
                         reciterList = resource.data
@@ -145,10 +171,59 @@ class RadioFragment : Fragment() {
                 }
 
                 is Resource.Error -> {
-                    //Todo
+                    showErrorFragment(resource.errorMessage, 1)
                 }
             }
         }
     }
 
+    private fun showErrorFragment(
+        message: String,
+        tabNum: Int
+    ) {
+        if (findNavController().currentDestination?.id != R.id.radioFragment) {
+            return
+        }
+
+        val action =
+            RadioFragmentDirections.actionRadioFragmentToErrorFragment(
+                message,
+                tabNum
+            )
+        findNavController().navigate(action)
+    }
+
+    fun observeRetry() {
+        parentFragmentManager.setFragmentResultListener(
+            "RADIO_RETRY",
+            viewLifecycleOwner
+        ) { _, bundle ->
+            val tabNum = bundle.getInt("TAB_NUM")
+            binding.root.post {
+                if (findNavController().currentDestination?.id != R.id.radioFragment) {
+                    binding.root.post {
+                        retryData(tabNum)
+                    }
+                    return@post
+                }
+                retryData(tabNum)
+            }
+        }
+    }
+
+
+    private fun retryData(tabNum: Int) {
+        when (tabNum) {
+            0 -> {
+                isRadioListTheSame = false
+
+                viewModel.loadRadioList()
+            }
+
+            1 -> {
+                isRecitersListTheSame = false
+                viewModel.loadRecitersList()
+            }
+        }
+    }
 }
