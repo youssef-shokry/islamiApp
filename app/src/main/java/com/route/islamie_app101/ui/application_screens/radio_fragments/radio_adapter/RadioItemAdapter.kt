@@ -1,16 +1,16 @@
 package com.route.islamie_app101.ui.application_screens.radio_fragments.radio_adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.route.islamie_app101.databinding.RadioItemBinding
+import com.route.islamie_app101.domain.data_models.radio.diff_util.DiffIdentifiable
+import com.route.islamie_app101.ui.application_screens.radio_fragments.diff_util.DiffItemCallback
 
-class RadioItemAdapter<T>(
-    private var listItems: List<T?>? = emptyList(),
+class RadioItemAdapter<T : DiffIdentifiable>(
     private val bind: (radioItem: RadioItemBinding, listItem: T?) -> Unit
-) :
-    RecyclerView.Adapter<RadioItemAdapter.ItemViewHolder>() {
+) : ListAdapter<T, RadioItemAdapter.ItemViewHolder>(DiffItemCallback()) {
     private lateinit var binding: RadioItemBinding
 
     override fun onCreateViewHolder(
@@ -22,19 +22,8 @@ class RadioItemAdapter<T>(
         return ItemViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        listItems?.get(position)?.let { item ->
-            bind(holder.binding, item)
-        }
-    }
-
-    override fun getItemCount(): Int = listItems?.count { it != null } ?: 0
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun submitList(newListItems: List<T?>?) {
-        listItems = newListItems
-        notifyDataSetChanged()
-    }
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) =
+        bind(holder.binding, getItem(position))
 
     class ItemViewHolder(val binding: RadioItemBinding) :
         RecyclerView.ViewHolder(binding.root)

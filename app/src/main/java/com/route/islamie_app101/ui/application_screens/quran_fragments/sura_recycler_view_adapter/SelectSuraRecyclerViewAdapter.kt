@@ -6,11 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.route.islamie_app101.R
 import com.route.islamie_app101.databinding.SuraListItemBinding
 import com.route.islamie_app101.domain.data_models.sura.SuraDataModel
-import com.route.islamie_app101.ui.application_screens.quran_fragments.interfaces.SuraClick
+import com.route.islamie_app101.ui.application_screens.quran_fragments.interfaces.SetOnSuraClick
 
 class SelectSuraRecyclerViewAdapter(val surahsList: List<SuraDataModel>) :
     RecyclerView.Adapter<SelectSuraRecyclerViewAdapter.SuraViewHolder>() {
-    var suraClick: SuraClick? = null
+    var setOnSuraClick: SetOnSuraClick? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuraViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -40,7 +40,7 @@ class SelectSuraRecyclerViewAdapter(val surahsList: List<SuraDataModel>) :
 
         fun onSuraClick(sura: SuraDataModel) {
             binding.root.setOnClickListener {
-                suraClick!!.onSuraClick(sura)
+                setOnSuraClick!!.onSuraClick(sura)
             }
         }
 
