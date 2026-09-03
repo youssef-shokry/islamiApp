@@ -2,6 +2,6 @@ package com.route.islamie_app101.ui.application_screens.quran_fragments.interfac
 
 import com.route.islamie_app101.domain.data_models.sura.SuraDataModel
 
-interface SuraClick {
+interface SetOnSuraClick {
     fun onSuraClick(sura: SuraDataModel)
 }

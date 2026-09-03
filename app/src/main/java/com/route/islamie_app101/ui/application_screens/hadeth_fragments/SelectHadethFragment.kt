@@ -13,7 +13,7 @@ import com.route.islamie_app101.databinding.FragmentSelectHadethBinding
 import com.route.islamie_app101.domain.data_models.hadeth.HadethDataModel
 import com.route.islamie_app101.ui.IslamiViewModel
 import com.route.islamie_app101.ui.application_screens.hadeth_fragments.hadeth_view_pager.HadethAdapter
-import com.route.islamie_app101.ui.application_screens.hadeth_fragments.hadeth_view_pager.HadethClick
+import com.route.islamie_app101.ui.application_screens.hadeth_fragments.hadeth_view_pager.SetOnHadethClick
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.abs
 
@@ -42,7 +42,7 @@ class SelectHadethFragment : Fragment() {
     }
 
     private fun initListeners() {
-        adapter.hadethClick = object : HadethClick {
+        adapter.setOnHadethClick = object : SetOnHadethClick {
             override fun onHadethClick(hadeth: HadethDataModel) {
                 val action =
                     SelectHadethFragmentDirections.actionSelectHadethFragmentToHadethFragment(hadeth)

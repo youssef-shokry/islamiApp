@@ -2,6 +2,6 @@ package com.route.islamie_app101.ui.application_screens.hadeth_fragments.hadeth_
 
 import com.route.islamie_app101.domain.data_models.hadeth.HadethDataModel
 
-interface HadethClick {
+interface SetOnHadethClick {
     fun onHadethClick(hadeth: HadethDataModel)
 }

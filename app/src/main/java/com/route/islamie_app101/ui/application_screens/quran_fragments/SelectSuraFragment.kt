@@ -12,7 +12,7 @@ import com.route.islamie_app101.databinding.FragmentSelectSuraBinding
 import com.route.islamie_app101.domain.data_models.sura.SuraDataModel
 import com.route.islamie_app101.ui.application_screens.quran_fragments.sura_recycler_view_adapter.SelectSuraRecyclerViewAdapter
 import com.route.islamie_app101.ui.IslamiViewModel
-import com.route.islamie_app101.ui.application_screens.quran_fragments.interfaces.SuraClick
+import com.route.islamie_app101.ui.application_screens.quran_fragments.interfaces.SetOnSuraClick
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,7 +30,7 @@ class SelectSuraFragment : Fragment() {
     }
 
     private fun initClickListeners() {
-        adapter.suraClick = object : SuraClick {
+        adapter.setOnSuraClick = object : SetOnSuraClick {
             override fun onSuraClick(sura: SuraDataModel) {
                 val action =
                     SelectSuraFragmentDirections.actionSelectSuraFragmentToSuraFragment(sura)

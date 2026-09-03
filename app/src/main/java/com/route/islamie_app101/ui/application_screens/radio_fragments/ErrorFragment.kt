@@ -10,6 +10,8 @@ import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.navArgs
 import com.route.islamie_app101.databinding.FragmentErrorBinding
+import com.route.islamie_app101.utils.Constants.Companion.RADIO_RETRY
+import com.route.islamie_app101.utils.Constants.Companion.TAB_NUM
 
 class ErrorFragment : DialogFragment() {
 
@@ -42,8 +44,8 @@ class ErrorFragment : DialogFragment() {
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
 
-        parentFragmentManager.setFragmentResult("RADIO_RETRY", Bundle().apply {
-            putInt("TAB_NUM", args.TabNum)
+        parentFragmentManager.setFragmentResult(RADIO_RETRY, Bundle().apply {
+            putInt(TAB_NUM, args.TabNum)
         })
     }
 }

@@ -17,6 +17,8 @@ import com.route.islamie_app101.ui.IslamiViewModel
 import com.route.islamie_app101.ui.application_screens.radio_fragments.radio_adapter.RadioItemAdapter
 import com.route.islamie_app101.ui.application_screens.radio_fragments.radio_adapter.RadioPagerAdapter
 import com.route.islamie_app101.ui.utils.Resource
+import com.route.islamie_app101.utils.Constants.Companion.RADIO_RETRY
+import com.route.islamie_app101.utils.Constants.Companion.TAB_NUM
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -92,7 +94,7 @@ class RadioFragment : Fragment() {
 
 
     fun setupRecyclerViewsAdapter() {
-        radioAdapter = RadioItemAdapter(radioList) { radioItem, listItem ->
+        radioAdapter = RadioItemAdapter { radioItem, listItem ->
             radioItem.radioNameText.text = listItem?.name
 
             radioItem.playButton.setOnClickListener {
@@ -100,7 +102,7 @@ class RadioFragment : Fragment() {
             }
         }
 
-        reciterAdapter = RadioItemAdapter(reciterList) { radioItem, listItem ->
+        reciterAdapter = RadioItemAdapter { radioItem, listItem ->
             radioItem.radioNameText.text = listItem?.name
 
             radioItem.playButton.setOnClickListener {
@@ -195,10 +197,10 @@ class RadioFragment : Fragment() {
 
     fun observeRetry() {
         parentFragmentManager.setFragmentResultListener(
-            "RADIO_RETRY",
+            RADIO_RETRY,
             viewLifecycleOwner
         ) { _, bundle ->
-            val tabNum = bundle.getInt("TAB_NUM")
+            val tabNum = bundle.getInt(TAB_NUM)
             binding.root.post {
                 if (findNavController().currentDestination?.id != R.id.radioFragment) {
                     binding.root.post {

@@ -2,22 +2,21 @@ package com.route.islamie_app101.ui.application_screens.quran_fragments.sura_rec
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.route.islamie_app101.R
 import com.route.islamie_app101.databinding.SuraAyaItemBinding
+import com.route.islamie_app101.ui.application_screens.quran_fragments.interfaces.SetOnAyaClick
 
-class SuraRecyclerViewAdapter(private val ayatList: List<String>) :
+class SuraRecyclerViewAdapter (private val ayatList: List<String>) :
     RecyclerView.Adapter<SuraRecyclerViewAdapter.AyaViewHolder>() {
-    private var selectedPosition = RecyclerView.NO_POSITION
+    private lateinit var binding: SuraAyaItemBinding
+    var setOnAyaClick: SetOnAyaClick? = null
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): AyaViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = SuraAyaItemBinding.inflate(inflater, parent, false)
-
+        binding = SuraAyaItemBinding.inflate(inflater, parent, false)
         return AyaViewHolder(binding)
     }
 
@@ -30,45 +29,21 @@ class SuraRecyclerViewAdapter(private val ayatList: List<String>) :
 
     override fun getItemCount(): Int = ayatList.size
 
+    fun updateSelection(oldPosition: Int, selectedPosition: Int) {
+        if (oldPosition != -1) {
+            notifyItemChanged(oldPosition)
+        }
+
+        if (selectedPosition != -1) {
+            notifyItemChanged(selectedPosition)
+        }
+    }
 
     inner class AyaViewHolder(val binding: SuraAyaItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        val goldBackground =
-            ContextCompat.getDrawable(binding.root.context, R.drawable.selected_aya_stroke)
-        val goldStroke =
-            ContextCompat.getDrawable(binding.root.context, R.drawable.ayat_stroke)
-        val black =
-            ContextCompat.getColor(binding.root.context, R.color.black)
-        val gold =
-            ContextCompat.getColor(binding.root.context, R.color.gold)
-
         fun bind(aya: String, position: Int) {
             binding.ayaText.text = aya
-            ayaClick(binding, position)
+            setOnAyaClick?.onAyaClick(binding, position)
         }
-
-        fun ayaClick(binding: SuraAyaItemBinding, position: Int) {
-
-            binding.root.setOnClickListener {
-                val oldPosition = selectedPosition
-
-                if (selectedPosition == position) {
-                    selectedPosition = RecyclerView.NO_POSITION
-                } else {
-                    selectedPosition = position
-                }
-                notifyItemChanged(oldPosition)
-                notifyItemChanged(selectedPosition)
-            }
-
-            if (position == selectedPosition) {
-                binding.root.background = goldBackground
-                binding.ayaText.setTextColor(black)
-            } else {
-                binding.root.background = goldStroke
-                binding.ayaText.setTextColor(gold)
-            }
-        }
-
     }
 }
