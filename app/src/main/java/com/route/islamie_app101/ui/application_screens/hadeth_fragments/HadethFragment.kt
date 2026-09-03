@@ -30,9 +30,7 @@ class HadethFragment : Fragment() {
 
     private fun initClickListeners() {
         binding.backArrowIcon.setOnClickListener {
-            val action = HadethFragmentDirections.actionHadethFragmentToSelectHadethFragment()
-
-            findNavController().navigate(action)
+            findNavController().popBackStack()
         }
     }
 

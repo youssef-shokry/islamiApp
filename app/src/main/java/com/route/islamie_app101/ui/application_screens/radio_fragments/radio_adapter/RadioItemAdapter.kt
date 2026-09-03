@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.route.islamie_app101.databinding.RadioItemBinding
 import com.route.islamie_app101.domain.data_models.radio.diff_util.DiffIdentifiable
-import com.route.islamie_app101.ui.application_screens.radio_fragments.diff_util.DiffItemCallback
+import com.route.islamie_app101.ui.application_screens.radio_fragments.radio_adapter.diff_util.DiffItemCallback
 
 class RadioItemAdapter<T : DiffIdentifiable>(
     private val bind: (radioItem: RadioItemBinding, listItem: T?) -> Unit

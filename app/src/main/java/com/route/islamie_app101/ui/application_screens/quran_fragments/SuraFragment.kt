@@ -68,9 +68,7 @@ class SuraFragment : Fragment() {
     }
     private fun initClickListeners() {
         binding.backArrowIcon.setOnClickListener {
-            val action = SuraFragmentDirections.actionSuraFragmentToSelectSuraFragment()
-
-            findNavController().navigate(action)
+            findNavController().popBackStack()
         }
 
         adapter.setOnAyaClick = object : SetOnAyaClick {

@@ -22,9 +22,8 @@ class SelectSuraRecyclerViewAdapter(val surahsList: List<SuraDataModel>) :
         holder.bind(surahsList[position])
     }
 
-    override fun getItemCount(): Int {
-        return surahsList.size
-    }
+    override fun getItemCount(): Int =surahsList.size
+
 
     inner class SuraViewHolder(val binding: SuraListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {

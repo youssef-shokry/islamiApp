@@ -25,12 +25,43 @@
         android:src="@drawable/islami_logo"/>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/sura_list_string"
+        android:id="@+id/most_recent_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/islami_logo"
-        app:layout_constraintStart_toStartOf="@id/background_pic"
-        android:layout_marginStart="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/recent_suras_rc"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="5dp"
+        style="@style/applicationTextStyle"
+        android:text="@string/most_recent"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:visibility="gone"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/recent_suras_rc"
+        app:layout_constraintTop_toBottomOf="@id/most_recent_text"
+        app:layout_constraintStart_toStartOf="@id/most_recent_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/sura_list_string"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/recently_selected_item"
+        android:orientation="horizontal"
+        android:visibility="gone"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/sura_list_string"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/recent_suras_rc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/suras_recycler_view"
+        android:layout_marginStart="12dp"
+        android:layout_marginVertical="5dp"
         style="@style/applicationTextStyle"
         android:text="@string/suras_list"
         android:textColor="@color/white"

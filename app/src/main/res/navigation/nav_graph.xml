@@ -45,9 +45,6 @@
         android:name="com.route.islamie_app101.ui.application_screens.quran_fragments.SuraFragment"
         android:label="fragment_sura"
         tools:layout="@layout/fragment_sura">
-        <action
-            android:id="@+id/action_suraFragment_to_selectSuraFragment"
-            app:destination="@id/selectSuraFragment" />
         <argument
             android:name="sura"
             app:argType="com.route.islamie_app101.domain.data_models.sura.SuraDataModel" />
@@ -57,9 +54,6 @@
         android:name="com.route.islamie_app101.ui.application_screens.hadeth_fragments.HadethFragment"
         android:label="fragment_hadeth"
         tools:layout="@layout/fragment_hadeth">
-        <action
-            android:id="@+id/action_hadethFragment_to_selectHadethFragment"
-            app:destination="@id/selectHadethFragment" />
         <argument
             android:name="hadeth"
             app:argType="com.route.islamie_app101.domain.data_models.hadeth.HadethDataModel" />

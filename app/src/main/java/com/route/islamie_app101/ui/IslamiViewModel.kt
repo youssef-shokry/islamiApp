@@ -26,11 +26,10 @@ class IslamiViewModel @Inject constructor(
     private val reciterUseCase: GetReciterUseCase
 ) : ViewModel() {
     val surasList: List<SuraDataModel> = quranUseCase()
+    var recentSurasList: MutableList<SuraDataModel> = mutableListOf()
     val ahadethList: List<HadethDataModel> = ahadethUseCase()
     var radioState = MutableLiveData<Resource<List<RadioDataModel>>>()
     var recitersState = MutableLiveData<Resource<List<ReciterDataModel>>>()
-    var surasListLastPosition = 0
-    var surasListLastPositionOffset = 0
 
     fun loadRadioList() {
         radioState.value = Resource.Loading()
