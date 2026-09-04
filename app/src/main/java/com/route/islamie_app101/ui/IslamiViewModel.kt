@@ -15,6 +15,8 @@ import com.route.islamie_app101.ui.utils.Resource
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.route.islamie_app101.domain.use_cases.quran_use_cases.AddRecentSuraUseCase
+import com.route.islamie_app101.domain.use_cases.quran_use_cases.GetRecentSurasUseCase
 import kotlinx.coroutines.launch
 
 
@@ -22,11 +24,12 @@ import kotlinx.coroutines.launch
 class IslamiViewModel @Inject constructor(
     quranUseCase: GetQuranUseCase,
     ahadethUseCase: GetAhadethUseCase,
+    private val getRecentSurasUseCase: GetRecentSurasUseCase,
+    private val addRecentSuraUseCase: AddRecentSuraUseCase,
     private val radioUseCase: GetRadioUseCase,
     private val reciterUseCase: GetReciterUseCase
 ) : ViewModel() {
     val surasList: List<SuraDataModel> = quranUseCase()
-    var recentSurasList: MutableList<SuraDataModel> = mutableListOf()
     val ahadethList: List<HadethDataModel> = ahadethUseCase()
     var radioState = MutableLiveData<Resource<List<RadioDataModel>>>()
     var recitersState = MutableLiveData<Resource<List<ReciterDataModel>>>()
@@ -61,4 +64,8 @@ class IslamiViewModel @Inject constructor(
             }
         }
     }
+
+    fun loadRecentSuras(): List<SuraDataModel> = getRecentSurasUseCase()
+
+    fun addRecentSura(sura: SuraDataModel) = addRecentSuraUseCase(sura)
 }

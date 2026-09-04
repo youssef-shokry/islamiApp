@@ -39,7 +39,7 @@ class SelectSuraRecyclerViewAdapter(val surahsList: List<SuraDataModel>) :
 
         fun onSuraClick(sura: SuraDataModel) {
             binding.root.setOnClickListener {
-                setOnSuraClick!!.onSuraClick(sura)
+                setOnSuraClick?.onSuraClick(sura)
             }
         }
 

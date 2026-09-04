@@ -1,6 +1,5 @@
 package com.route.islamie_app101.ui.application_screens.quran_fragments.sura_recycler_view_adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -8,10 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.route.islamie_app101.databinding.RecentlySelectedItemBinding
 import com.route.islamie_app101.domain.data_models.sura.SuraDataModel
 import com.route.islamie_app101.ui.application_screens.quran_fragments.diff_util.RecentDiffUtil
+import com.route.islamie_app101.ui.application_screens.quran_fragments.interfaces.SetOnRecentSuraClick
 
 class RecentSuraRecyclerViewAdapter :
     ListAdapter<SuraDataModel, RecentSuraRecyclerViewAdapter.RecentSuraViewHolder>(RecentDiffUtil()) {
     private lateinit var binding: RecentlySelectedItemBinding
+
+    var setOnRecentSuraClick: SetOnRecentSuraClick? = null
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -29,12 +31,15 @@ class RecentSuraRecyclerViewAdapter :
         holder.bind(getItem(position))
     }
 
-    class RecentSuraViewHolder(val binding: RecentlySelectedItemBinding) :
+    inner class RecentSuraViewHolder(val binding: RecentlySelectedItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(sura: SuraDataModel) {
             binding.suraEnName.text = sura.suraNameEn
             binding.suraArName.text = sura.suraNameAr
             binding.suraVersesNumber.text = sura.versesNumber
+            binding.root.setOnClickListener {
+                setOnRecentSuraClick?.onRecentSuraClick(sura)
+            }
         }
     }
 

@@ -11,6 +11,7 @@ import com.route.islamie_app101.databinding.FragmentSelectSuraBinding
 import com.route.islamie_app101.domain.data_models.sura.SuraDataModel
 import com.route.islamie_app101.ui.application_screens.quran_fragments.sura_recycler_view_adapter.SelectSuraRecyclerViewAdapter
 import com.route.islamie_app101.ui.IslamiViewModel
+import com.route.islamie_app101.ui.application_screens.quran_fragments.interfaces.SetOnRecentSuraClick
 import com.route.islamie_app101.ui.application_screens.quran_fragments.interfaces.SetOnSuraClick
 import com.route.islamie_app101.ui.application_screens.quran_fragments.sura_recycler_view_adapter.RecentSuraRecyclerViewAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,6 +45,13 @@ class SelectSuraFragment : Fragment() {
                 mostRecentSura(sura)
             }
         }
+
+        recentSuraAdapter.setOnRecentSuraClick = SetOnRecentSuraClick { sura ->
+            val action =
+                SelectSuraFragmentDirections.actionSelectSuraFragmentToSuraFragment(sura)
+            findNavController().navigate(action)
+            mostRecentSura(sura)
+        }
     }
 
     private fun setUpAdapters() {
@@ -60,19 +68,15 @@ class SelectSuraFragment : Fragment() {
     }
 
     fun showMostRecent() {
-        if (!islamiViewModel.recentSurasList.isEmpty()) {
+        if (!islamiViewModel.loadRecentSuras().isEmpty()) {
             binding.mostRecentText.visibility = View.VISIBLE
             binding.recentSurasRc.visibility = View.VISIBLE
         }
-        recentSuraAdapter.submitList(islamiViewModel.recentSurasList.toList())
+        recentSuraAdapter.submitList(islamiViewModel.loadRecentSuras().toList())
     }
 
-
     fun addRecentSura(sura: SuraDataModel) {
-        if (islamiViewModel.recentSurasList.contains(sura)) {
-            islamiViewModel.recentSurasList.remove(sura)
-        }
-        islamiViewModel.recentSurasList.add(0, sura)
-        recentSuraAdapter.submitList(islamiViewModel.recentSurasList.toList())
+        islamiViewModel.addRecentSura(sura)
+        recentSuraAdapter.submitList(islamiViewModel.loadRecentSuras())
     }
 }
