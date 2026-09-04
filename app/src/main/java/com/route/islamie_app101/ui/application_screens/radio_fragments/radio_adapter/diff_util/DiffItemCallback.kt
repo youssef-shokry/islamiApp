@@ -1,4 +1,4 @@
-package com.route.islamie_app101.ui.application_screens.radio_fragments.diff_util
+package com.route.islamie_app101.ui.application_screens.radio_fragments.radio_adapter.diff_util
 
 import androidx.recyclerview.widget.DiffUtil
 import com.route.islamie_app101.domain.data_models.radio.diff_util.DiffIdentifiable

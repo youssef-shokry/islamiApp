@@ -7,19 +7,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.route.islamie_app101.databinding.FragmentSelectSuraBinding
 import com.route.islamie_app101.domain.data_models.sura.SuraDataModel
 import com.route.islamie_app101.ui.application_screens.quran_fragments.sura_recycler_view_adapter.SelectSuraRecyclerViewAdapter
 import com.route.islamie_app101.ui.IslamiViewModel
+import com.route.islamie_app101.ui.application_screens.quran_fragments.interfaces.SetOnRecentSuraClick
 import com.route.islamie_app101.ui.application_screens.quran_fragments.interfaces.SetOnSuraClick
+import com.route.islamie_app101.ui.application_screens.quran_fragments.sura_recycler_view_adapter.RecentSuraRecyclerViewAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SelectSuraFragment : Fragment() {
-
     private lateinit var binding: FragmentSelectSuraBinding
-    private lateinit var adapter: SelectSuraRecyclerViewAdapter
+    private lateinit var suraListAdapter: SelectSuraRecyclerViewAdapter
+    private lateinit var recentSuraAdapter: RecentSuraRecyclerViewAdapter
     private val islamiViewModel: IslamiViewModel by viewModels()
 
     override fun onCreateView(
@@ -29,45 +30,53 @@ class SelectSuraFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setUpAdapters()
+        initClickListeners()
+        showMostRecent()
+    }
+
     private fun initClickListeners() {
-        adapter.setOnSuraClick = object : SetOnSuraClick {
+        suraListAdapter.setOnSuraClick = object : SetOnSuraClick {
             override fun onSuraClick(sura: SuraDataModel) {
                 val action =
                     SelectSuraFragmentDirections.actionSelectSuraFragmentToSuraFragment(sura)
                 findNavController().navigate(action)
+                mostRecentSura(sura)
             }
+        }
+
+        recentSuraAdapter.setOnRecentSuraClick = SetOnRecentSuraClick { sura ->
+            val action =
+                SelectSuraFragmentDirections.actionSelectSuraFragmentToSuraFragment(sura)
+            findNavController().navigate(action)
+            mostRecentSura(sura)
         }
     }
 
-    private fun setUpAdapter() {
-        adapter = SelectSuraRecyclerViewAdapter(islamiViewModel.surasList)
-        binding.surasRecyclerView.adapter = adapter
+    private fun setUpAdapters() {
+        suraListAdapter = SelectSuraRecyclerViewAdapter(islamiViewModel.surasList)
+        binding.surasRecyclerView.adapter = suraListAdapter
+
+        recentSuraAdapter = RecentSuraRecyclerViewAdapter()
+        binding.recentSurasRc.adapter = recentSuraAdapter
     }
 
-    private fun getPreviousPosition() {
-        val layoutManager = binding.surasRecyclerView.layoutManager as LinearLayoutManager
-
-        layoutManager.scrollToPositionWithOffset(
-            islamiViewModel.surasListLastPosition, islamiViewModel.surasListLastPositionOffset
-        )
+    fun mostRecentSura(sura: SuraDataModel) {
+        addRecentSura(sura)
+        showMostRecent()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setUpAdapter()
-        getPreviousPosition()
-        initClickListeners()
+    fun showMostRecent() {
+        if (!islamiViewModel.loadRecentSuras().isEmpty()) {
+            binding.mostRecentText.visibility = View.VISIBLE
+            binding.recentSurasRc.visibility = View.VISIBLE
+        }
+        recentSuraAdapter.submitList(islamiViewModel.loadRecentSuras().toList())
     }
 
-    private fun savePosition() {
-        val layoutManager = binding.surasRecyclerView.layoutManager as LinearLayoutManager
-        islamiViewModel.surasListLastPosition = layoutManager.findFirstVisibleItemPosition()
-
-        val view = layoutManager.findViewByPosition(islamiViewModel.surasListLastPosition)
-        islamiViewModel.surasListLastPositionOffset = view?.top ?: 0
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        savePosition()
+    fun addRecentSura(sura: SuraDataModel) {
+        islamiViewModel.addRecentSura(sura)
+        recentSuraAdapter.submitList(islamiViewModel.loadRecentSuras())
     }
 }
