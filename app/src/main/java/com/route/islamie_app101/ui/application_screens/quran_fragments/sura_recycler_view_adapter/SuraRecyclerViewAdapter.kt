@@ -29,16 +29,6 @@ class SuraRecyclerViewAdapter (private val ayatList: List<String>) :
 
     override fun getItemCount(): Int = ayatList.size
 
-    fun updateSelection(oldPosition: Int, selectedPosition: Int) {
-        if (oldPosition != -1) {
-            notifyItemChanged(oldPosition)
-        }
-
-        if (selectedPosition != -1) {
-            notifyItemChanged(selectedPosition)
-        }
-    }
-
     inner class AyaViewHolder(val binding: SuraAyaItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(aya: String, position: Int) {

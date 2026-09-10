@@ -9,7 +9,7 @@ import com.route.islamie_app101.domain.data_models.radio.diff_util.DiffIdentifia
 import com.route.islamie_app101.ui.application_screens.radio_fragments.radio_adapter.diff_util.DiffItemCallback
 
 class RadioItemAdapter<T : DiffIdentifiable>(
-    private val bind: (radioItem: RadioItemBinding, listItem: T?) -> Unit
+    private val bind: (radioItem: RadioItemBinding, listItem: T?, position: Int) -> Unit
 ) : ListAdapter<T, RadioItemAdapter.ItemViewHolder>(DiffItemCallback()) {
     private lateinit var binding: RadioItemBinding
 
@@ -23,7 +23,7 @@ class RadioItemAdapter<T : DiffIdentifiable>(
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) =
-        bind(holder.binding, getItem(position))
+        bind(holder.binding, getItem(position), position)
 
     class ItemViewHolder(val binding: RadioItemBinding) :
         RecyclerView.ViewHolder(binding.root)

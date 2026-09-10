@@ -59,7 +59,7 @@ dependencies {
     //Navigation Component Dependency
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)
-    //Kotlin serialization plugin
+    //Kotlin serialization plugin Dependency
     implementation(libs.kotlinx.serialization.json)
     //ViewPager2 Dependency
     implementation(libs.androidx.viewpager2)
@@ -69,11 +69,15 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel)
     //LiveData Dependency
     implementation(libs.androidx.lifecycle.livedata)
-    //Retrofit
+    //Retrofit Dependency
     implementation(libs.retrofit)
-    //Retrifit Gson Converter
+    //Retrifit Gson Converter Dependency
     implementation(libs.converter.gson)
-    //Hilt Dagger
+    //Hilt Dagger Dependency
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
+    //ExoPlayer Dependency
+    implementation(libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.session)
+    implementation(libs.androidx.media3.ui)
 }

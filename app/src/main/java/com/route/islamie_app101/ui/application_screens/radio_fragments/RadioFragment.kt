@@ -1,5 +1,6 @@
 package com.route.islamie_app101.ui.application_screens.radio_fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,13 +12,18 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.route.islamie_app101.R
 import com.route.islamie_app101.databinding.FragmentRadioBinding
+import com.route.islamie_app101.databinding.RadioItemBinding
 import com.route.islamie_app101.domain.data_models.radio.RadioDataModel
 import com.route.islamie_app101.domain.data_models.radio.ReciterDataModel
+import com.route.islamie_app101.domain.data_models.radio.diff_util.DiffIdentifiable
 import com.route.islamie_app101.ui.IslamiViewModel
 import com.route.islamie_app101.ui.application_screens.radio_fragments.radio_adapter.RadioItemAdapter
 import com.route.islamie_app101.ui.application_screens.radio_fragments.radio_adapter.RadioPagerAdapter
+import com.route.islamie_app101.ui.application_screens.radio_fragments.services.RadioService
 import com.route.islamie_app101.ui.utils.Resource
+import com.route.islamie_app101.utils.Constants.Companion.ACTION_PLAY_URL
 import com.route.islamie_app101.utils.Constants.Companion.RADIO_RETRY
+import com.route.islamie_app101.utils.Constants.Companion.RADIO_STREAM_URL
 import com.route.islamie_app101.utils.Constants.Companion.TAB_NUM
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,6 +38,8 @@ class RadioFragment : Fragment() {
     private var isRadioListTheSame: Boolean = false
     private var isRecitersListTheSame: Boolean = false
     private val viewModel: IslamiViewModel by viewModels()
+    private var selectedRadioPosition: Int = -1
+    private var selectedRecitersPosition: Int = -1
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -94,29 +102,67 @@ class RadioFragment : Fragment() {
 
 
     fun setupRecyclerViewsAdapter() {
-        radioAdapter = RadioItemAdapter { radioItem, listItem ->
+        radioAdapter = RadioItemAdapter { radioItem, listItem, position ->
             radioItem.radioNameText.text = listItem?.name
-
-            radioItem.playButton.setOnClickListener {
-                //TODO
+            onPlayButtonClick(radioItem, position).apply {
+                startRadioPlayer(listItem?.url ?: "")
             }
+
         }
 
-        reciterAdapter = RadioItemAdapter { radioItem, listItem ->
-            radioItem.radioNameText.text = listItem?.name
-
-            radioItem.playButton.setOnClickListener {
+        reciterAdapter = RadioItemAdapter { recitersItem, listItem, position ->
+            recitersItem.radioNameText.text = listItem?.name
+            recitersItem.playButton.setOnClickListener {
                 //TODO
             }
         }
     }
 
-    fun showLoading() {
-        binding.loading.visibility = View.VISIBLE
+    private fun onPlayButtonClick(item: RadioItemBinding, rcPosition: Int) {
+        item.playButton.setOnClickListener {
+            selectedRadioPosition =
+                toggleButton(rcPosition, selectedRadioPosition, radioAdapter)
+        }
+        changePlayButton(selectedRadioPosition, rcPosition, item)
     }
 
-    fun hideLoading() {
-        binding.loading.visibility = View.GONE
+    fun <T : DiffIdentifiable> toggleButton(
+        position: Int,
+        oldPosition: Int,
+        adapter: RadioItemAdapter<T>
+    ): Int {
+        val newPosition = if (oldPosition == position) {
+            -1
+        } else {
+            position
+        }
+        adapter.apply {
+            if (newPosition != -1) {
+                notifyItemChanged(newPosition)
+            }
+            if (oldPosition != -1) {
+                notifyItemChanged(oldPosition)
+            }
+        }
+        return newPosition
+    }
+
+    fun changePlayButton(selectedPosition: Int, rcPosition: Int, binding: RadioItemBinding) {
+        if (selectedPosition == rcPosition) {
+            binding.playButton.setImageResource(R.drawable.pause_button)
+            binding.bottomRadioItemImage.setImageResource(R.drawable.sound_wave_custom)
+        } else {
+            binding.playButton.setImageResource(R.drawable.play_button)
+            binding.bottomRadioItemImage.setImageResource(R.drawable.bottom_radio_image)
+        }
+    }
+
+
+    fun startRadioPlayer(url: String) {
+        val intent = Intent(requireContext(), RadioService::class.java)
+        intent.action = ACTION_PLAY_URL
+        intent.putExtra(RADIO_STREAM_URL, url)
+        requireContext().startForegroundService(intent)
     }
 
     fun radioListState() {
@@ -179,10 +225,15 @@ class RadioFragment : Fragment() {
         }
     }
 
-    private fun showErrorFragment(
-        message: String,
-        tabNum: Int
-    ) {
+    fun showLoading() {
+        binding.loading.visibility = View.VISIBLE
+    }
+
+    fun hideLoading() {
+        binding.loading.visibility = View.GONE
+    }
+
+    private fun showErrorFragment(message: String, tabNum: Int) {
         if (findNavController().currentDestination?.id != R.id.radioFragment) {
             return
         }
@@ -212,7 +263,6 @@ class RadioFragment : Fragment() {
             }
         }
     }
-
 
     private fun retryData(tabNum: Int) {
         when (tabNum) {

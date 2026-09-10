@@ -1,5 +1,6 @@
 package com.route.islamie_app101.ui.application_screens.radio_fragments.radio_adapter.diff_util
 
+import android.annotation.SuppressLint
 import androidx.recyclerview.widget.DiffUtil
 import com.route.islamie_app101.domain.data_models.radio.diff_util.DiffIdentifiable
 
@@ -9,5 +10,6 @@ class DiffItemCallback<T : DiffIdentifiable> :
     override fun areItemsTheSame(oldItem: T, newItem: T): Boolean =
         oldItem.uniqueId == newItem.uniqueId
 
+    @SuppressLint("DiffUtilEquals")
     override fun areContentsTheSame(oldItem: T, newItem: T): Boolean = oldItem == newItem
 }

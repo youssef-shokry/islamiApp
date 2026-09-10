@@ -82,9 +82,16 @@ class SuraFragment : Fragment() {
                     } else {
                         position
                     }
-                    adapter.updateSelection(oldPosition, selectedAyaPosition)
-                }
+                    adapter.apply {
+                        if (oldPosition != -1){
+                            notifyItemChanged(oldPosition)
+                        }
 
+                        if (selectedAyaPosition != -1){
+                            notifyItemChanged(selectedAyaPosition)
+                        }
+                    }
+                }
                 ayaEffect(binding, position)
             }
         }
