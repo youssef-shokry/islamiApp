@@ -1,15 +1,21 @@
 package com.route.islamie_app101.ui.application_screens.radio_fragments
 
-import android.content.Intent
+import android.content.ComponentName
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.media3.common.MediaItem
+import androidx.media3.common.MediaMetadata
+import androidx.media3.session.MediaController
+import androidx.media3.session.SessionToken
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.common.util.concurrent.ListenableFuture
+import com.google.common.util.concurrent.MoreExecutors
 import com.route.islamie_app101.R
 import com.route.islamie_app101.databinding.FragmentRadioBinding
 import com.route.islamie_app101.databinding.RadioItemBinding
@@ -21,9 +27,7 @@ import com.route.islamie_app101.ui.application_screens.radio_fragments.radio_ada
 import com.route.islamie_app101.ui.application_screens.radio_fragments.radio_adapter.RadioPagerAdapter
 import com.route.islamie_app101.ui.application_screens.radio_fragments.services.RadioService
 import com.route.islamie_app101.ui.utils.Resource
-import com.route.islamie_app101.utils.Constants.Companion.ACTION_PLAY_URL
 import com.route.islamie_app101.utils.Constants.Companion.RADIO_RETRY
-import com.route.islamie_app101.utils.Constants.Companion.RADIO_STREAM_URL
 import com.route.islamie_app101.utils.Constants.Companion.TAB_NUM
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,7 +43,11 @@ class RadioFragment : Fragment() {
     private var isRecitersListTheSame: Boolean = false
     private val viewModel: IslamiViewModel by viewModels()
     private var selectedRadioPosition: Int = -1
-    private var selectedRecitersPosition: Int = -1
+
+    //    private var selectedRecitersPosition: Int = -1
+    private var mediaController: MediaController? = null
+    private var controllerFuture: ListenableFuture<MediaController>? = null
+    private var isPlaying: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,6 +67,11 @@ class RadioFragment : Fragment() {
         radioListState()
         recitersListState()
         observeRetry()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        initMediaController()
     }
 
     fun setupViewPagerAdapter() {
@@ -104,13 +117,15 @@ class RadioFragment : Fragment() {
     fun setupRecyclerViewsAdapter() {
         radioAdapter = RadioItemAdapter { radioItem, listItem, position ->
             radioItem.radioNameText.text = listItem?.name
-            onPlayButtonClick(radioItem, position).apply {
-                startRadioPlayer(listItem?.url ?: "")
-            }
-
+            onButtonClick(
+                radioItem,
+                position,
+                listItem?.url ?: "",
+                listItem?.name ?: ""
+            )
         }
 
-        reciterAdapter = RadioItemAdapter { recitersItem, listItem, position ->
+        reciterAdapter = RadioItemAdapter { recitersItem, listItem, _ ->
             recitersItem.radioNameText.text = listItem?.name
             recitersItem.playButton.setOnClickListener {
                 //TODO
@@ -118,10 +133,22 @@ class RadioFragment : Fragment() {
         }
     }
 
-    private fun onPlayButtonClick(item: RadioItemBinding, rcPosition: Int) {
+    private fun onButtonClick(
+        item: RadioItemBinding,
+        rcPosition: Int,
+        url: String,
+        title: String
+    ) {
         item.playButton.setOnClickListener {
             selectedRadioPosition =
                 toggleButton(rcPosition, selectedRadioPosition, radioAdapter)
+            if (!isPlaying) {
+                isPlaying = true
+                startRadioPlayer(url, title)
+            } else {
+                isPlaying = false
+                mediaController?.pause()
+            }
         }
         changePlayButton(selectedRadioPosition, rcPosition, item)
     }
@@ -147,7 +174,11 @@ class RadioFragment : Fragment() {
         return newPosition
     }
 
-    fun changePlayButton(selectedPosition: Int, rcPosition: Int, binding: RadioItemBinding) {
+    fun changePlayButton(
+        selectedPosition: Int,
+        rcPosition: Int,
+        binding: RadioItemBinding,
+    ) {
         if (selectedPosition == rcPosition) {
             binding.playButton.setImageResource(R.drawable.pause_button)
             binding.bottomRadioItemImage.setImageResource(R.drawable.sound_wave_custom)
@@ -158,11 +189,28 @@ class RadioFragment : Fragment() {
     }
 
 
-    fun startRadioPlayer(url: String) {
-        val intent = Intent(requireContext(), RadioService::class.java)
-        intent.action = ACTION_PLAY_URL
-        intent.putExtra(RADIO_STREAM_URL, url)
-        requireContext().startForegroundService(intent)
+    private fun initMediaController() {
+        val sessionToken = SessionToken(
+            requireContext(),
+            ComponentName(requireContext(), RadioService::class.java)
+        )
+        controllerFuture = MediaController.Builder(requireContext(), sessionToken).buildAsync()
+        controllerFuture?.addListener({
+            mediaController = controllerFuture?.get()
+        }, MoreExecutors.directExecutor())
+    }
+
+    fun startRadioPlayer(url: String, title: String) {
+        val mediaItem = MediaItem.Builder()
+            .setUri(url)
+            .setMediaMetadata(MediaMetadata.Builder().setDisplayTitle(title).build())
+            .build()
+
+        mediaController?.apply {
+            setMediaItem(mediaItem)
+            prepare()
+            play()
+        }
     }
 
     fun radioListState() {
@@ -268,7 +316,6 @@ class RadioFragment : Fragment() {
         when (tabNum) {
             0 -> {
                 isRadioListTheSame = false
-
                 viewModel.loadRadioList()
             }
 
@@ -277,5 +324,14 @@ class RadioFragment : Fragment() {
                 viewModel.loadRecitersList()
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mediaController?.release()
+        mediaController = null
+
+        controllerFuture?.cancel(true)
+        controllerFuture = null
     }
 }

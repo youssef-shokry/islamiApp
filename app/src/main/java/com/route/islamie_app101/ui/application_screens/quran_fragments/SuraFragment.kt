@@ -74,6 +74,8 @@ class SuraFragment : Fragment() {
         adapter.setOnAyaClick = object : SetOnAyaClick {
             override fun onAyaClick(binding: SuraAyaItemBinding, position: Int) {
 
+                ayaEffect(binding, position)
+
                 binding.root.setOnClickListener {
                     val oldPosition = selectedAyaPosition
 
@@ -92,7 +94,6 @@ class SuraFragment : Fragment() {
                         }
                     }
                 }
-                ayaEffect(binding, position)
             }
         }
     }
