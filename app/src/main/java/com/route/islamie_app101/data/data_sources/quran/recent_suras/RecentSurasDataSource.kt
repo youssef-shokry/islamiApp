@@ -17,6 +17,11 @@ class RecentSurasDataSource @Inject constructor(@param:ApplicationContext privat
     private val pref = context.getSharedPreferences(MOST_RECENT_PREF, Context.MODE_PRIVATE)
     private val gson = Gson()
 
+    fun saveRecentSuras(recentSurasList: List<SuraDataModel>) {
+        val json = gson.toJson(recentSurasList)
+        pref.edit { putString(RECENT_SURAS_LIST, json).apply() }
+    }
+
     fun getRecentSuras(): List<SuraDataModel> {
 
         val json = pref.getString(RECENT_SURAS_LIST, null) ?: return emptyList()
@@ -28,10 +33,5 @@ class RecentSurasDataSource @Inject constructor(@param:ApplicationContext privat
             emptyList()
         }
 
-    }
-
-    fun saveRecentSuras(recentSurasList: List<SuraDataModel>) {
-        val json = gson.toJson(recentSurasList)
-        pref.edit { putString(RECENT_SURAS_LIST, json).apply() }
     }
 }

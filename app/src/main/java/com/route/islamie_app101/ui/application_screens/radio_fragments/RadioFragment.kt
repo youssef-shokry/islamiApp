@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.media3.common.MediaItem
-import androidx.media3.common.MediaMetadata
 import androidx.media3.session.MediaController
 import androidx.media3.session.SessionToken
 import androidx.navigation.fragment.findNavController
@@ -26,6 +25,7 @@ import com.route.islamie_app101.ui.IslamiViewModel
 import com.route.islamie_app101.ui.application_screens.radio_fragments.radio_adapter.RadioItemAdapter
 import com.route.islamie_app101.ui.application_screens.radio_fragments.radio_adapter.RadioPagerAdapter
 import com.route.islamie_app101.ui.application_screens.radio_fragments.services.RadioService
+import com.route.islamie_app101.ui.application_screens.radio_fragments.services.createThemedMetadata
 import com.route.islamie_app101.ui.utils.Resource
 import com.route.islamie_app101.utils.Constants.Companion.RADIO_RETRY
 import com.route.islamie_app101.utils.Constants.Companion.TAB_NUM
@@ -43,11 +43,10 @@ class RadioFragment : Fragment() {
     private var isRecitersListTheSame: Boolean = false
     private val viewModel: IslamiViewModel by viewModels()
     private var selectedRadioPosition: Int = -1
-
-    //    private var selectedRecitersPosition: Int = -1
     private var mediaController: MediaController? = null
     private var controllerFuture: ListenableFuture<MediaController>? = null
     private var isPlaying: Boolean = false
+    private val mutedPositions = mutableSetOf<Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -117,40 +116,105 @@ class RadioFragment : Fragment() {
     fun setupRecyclerViewsAdapter() {
         radioAdapter = RadioItemAdapter { radioItem, listItem, position ->
             radioItem.radioNameText.text = listItem?.name
-            onButtonClick(
+            onPlayButtonClick(
                 radioItem,
                 position,
                 listItem?.url ?: "",
                 listItem?.name ?: ""
             )
+            onMuteClick(radioItem, position).also {
+                radioItem.muteButton.setImageResource(
+                    if (mutedPositions.contains(position)) {
+                        R.drawable.volume_muted
+                    } else {
+                        R.drawable.volume_high
+                    }
+                )
+            }
         }
 
         reciterAdapter = RadioItemAdapter { recitersItem, listItem, _ ->
             recitersItem.radioNameText.text = listItem?.name
-            recitersItem.playButton.setOnClickListener {
-                //TODO
+        }
+    }
+
+    private fun onMuteClick(
+        radioItem: RadioItemBinding,
+        rcPosition: Int
+    ) {
+        radioItem.muteButton.setOnClickListener {
+
+            if (mutedPositions.contains(rcPosition)) {
+                mutedPositions.remove(rcPosition)
+
+                if (selectedRadioPosition == rcPosition) {
+                    mediaController?.unmute()
+                }
+                radioItem.muteButton.setImageResource(R.drawable.volume_high)
+
+            } else {
+                mutedPositions.add(rcPosition)
+
+                if (selectedRadioPosition == rcPosition) {
+                    mediaController?.mute()
+                }
+
+                radioItem.muteButton.setImageResource(R.drawable.volume_muted)
             }
         }
     }
 
-    private fun onButtonClick(
+//    private fun onNotificationClick(
+//        selectedRadioPosition: Int,
+//        rcPosition: ifInt,
+//        radioItem: RadioItemBinding
+//    ) {
+//
+//    }
+
+    private fun onPlayButtonClick(
         item: RadioItemBinding,
         rcPosition: Int,
         url: String,
         title: String
     ) {
         item.playButton.setOnClickListener {
+            val oldPosition = selectedRadioPosition
             selectedRadioPosition =
                 toggleButton(rcPosition, selectedRadioPosition, radioAdapter)
+
             if (!isPlaying) {
                 isPlaying = true
-                startRadioPlayer(url, title)
+
+                startRadioPlayer(
+                    url = url,
+                    title = title,
+                    isMuted = mutedPositions.contains(rcPosition)
+                )
+
             } else {
-                isPlaying = false
-                mediaController?.pause()
+                if (oldPosition != rcPosition) {
+                    startRadioPlayer(
+                        url = url,
+                        title = title,
+                        isMuted = mutedPositions.contains(rcPosition)
+                    )
+                } else {
+                    isPlaying = false
+                    mediaController?.pause()
+                }
             }
         }
+
         changePlayButton(selectedRadioPosition, rcPosition, item)
+
+        item.muteButton.setImageResource(
+            if (mutedPositions.contains(rcPosition)) {
+                R.drawable.volume_muted
+            } else {
+                R.drawable.volume_high
+            }
+        )
     }
 
     fun <T : DiffIdentifiable> toggleButton(
@@ -188,7 +252,6 @@ class RadioFragment : Fragment() {
         }
     }
 
-
     private fun initMediaController() {
         val sessionToken = SessionToken(
             requireContext(),
@@ -200,15 +263,24 @@ class RadioFragment : Fragment() {
         }, MoreExecutors.directExecutor())
     }
 
-    fun startRadioPlayer(url: String, title: String) {
+    fun startRadioPlayer(
+        url: String,
+        title: String,
+        isMuted: Boolean
+    ) {
         val mediaItem = MediaItem.Builder()
             .setUri(url)
-            .setMediaMetadata(MediaMetadata.Builder().setDisplayTitle(title).build())
+            .setMediaMetadata(createThemedMetadata(title))
             .build()
 
         mediaController?.apply {
             setMediaItem(mediaItem)
             prepare()
+            volume = if (isMuted) {
+                0f
+            } else {
+                1f
+            }
             play()
         }
     }

@@ -1,6 +1,5 @@
 package com.route.islamie_app101.ui.application_screens.radio_fragments.services
 
-
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.session.DefaultMediaNotificationProvider
@@ -22,7 +21,6 @@ class RadioService : MediaSessionService() {
             .build()
             .apply {
                 setSmallIcon(R.drawable.splash_icon1)
-
             }
         setMediaNotificationProvider(notificationProvider)
     }
