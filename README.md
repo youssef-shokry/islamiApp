@@ -247,4 +247,4 @@ No API keys or `local.properties` secrets are required — the only network depe
 ---
 
 ## Credits
-Made by Youssef Shokry.
+Made by Youssef Ahmed Ali.
